@@ -7,7 +7,7 @@ import TextOnlyButton from '../components/Buttons/TextOnlyButton';
 
 export default function LoginScreen() {
   return (
-    <View style={styles.base}>
+    <View style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo-clear.png")}/>
       <View style={styles.verticalContainer}>
         <Text style={styles.title}>Games for Everyone</Text>
@@ -26,7 +26,7 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  base: {
+  container: {
     flex: 1,
     backgroundColor: '#F4E3C3',
     alignItems: 'center',
