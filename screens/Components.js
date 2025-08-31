@@ -8,22 +8,14 @@ import { TextField, SearchBar, SecureTextField } from '../components/TextFields'
 import { Title, Heading, Subheading, BodyText } from '../components/Texts'
 
 export default function Components() {
-  const { theme, mode, setMode } = useTheme();
-
-  const [darkMode, setDarkMode] = useState(mode === "dark")
-  const toggleSwitch = () => setDarkMode(previousState => {
-    const newState = !previousState
-    setMode(newState ? "dark" : "light")
-    return newState
-  });
-
-  const colorScheme = useColorScheme();
+  const { mode, setMode } = useTheme();
+  const toggleSwitch = () => { setMode(!(mode === "dark") ? "dark" : "light") };
 
   return (
     <View style={{ rowGap: 15}}>
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
         <BodyText>Dark mode</BodyText>
-        <Switch value={darkMode} onValueChange={toggleSwitch}/>
+        <Switch value={mode === "dark"} onValueChange={toggleSwitch}/>
       </View>
       <View>
         <Title>Title</Title>

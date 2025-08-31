@@ -30,6 +30,34 @@ export const ThemeProvider = ({ children }) => {
   const systemScheme = useColorScheme();
   const [mode, setMode] = useState(null);
 
+    useEffect(() => {
+    (async () => {
+      try {
+        const stored = await AsyncStorage.getItem("mode");
+        if (stored) {
+          setMode(stored);
+        } else {
+          setMode(systemScheme); // first time -> use system
+        }
+      } catch (e) {
+        console.log("Error loading mode:", e);
+        setMode(systemScheme);
+      }
+    })();
+  }, [systemScheme]);
+
+  useEffect(() => {
+    if (mode) {
+      (async () => {
+        try {
+          await AsyncStorage.setItem("mode", mode);
+        } catch (e) {
+          console.log("Error saving mode:", e);
+        }
+      })();
+    }
+  }, [mode]);
+
   const theme = useMemo(() => {
     if (mode === "light") return lightTheme;
     if (mode === "dark") return darkTheme;
