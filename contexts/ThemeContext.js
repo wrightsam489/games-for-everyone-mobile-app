@@ -5,23 +5,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const lightTheme = {
   primary: '#00A74F',
   secondary: '#0072CE',
-  warning: '#FFC107',
-  error: '#D32F2F',
-  background: '#dadadaff',
+  destructive: '#D32F2F',
+  background: '#F8F5E6',
   text: '#212121',
   disabled: '#7A7A7A',
-  highlight: '#BDBDBD'
+  highlight: '#E91E63',
+  textField: '#ffffff',
 }
 
 const darkTheme = {
   primary: '#39B54A',
   secondary: '#0070D1',
-  warning: '#dab111ff',
-  error: '#E74C3C',
+  destructive: '#E74C3C',
   background: '#121212',
   text: '#F5F5F5',
   disabled: '#7A7A7A',
-  highlight: '#E91E63'
+  highlight: '#E91E63',
+  textField: '#888888',
 }
 
 export const ThemeContext = createContext(lightTheme);
