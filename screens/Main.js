@@ -3,13 +3,14 @@ import { useTheme } from '../contexts/ThemeContext'
 
 import Components from './Components'
 import Login from './Login'
+import CreateAccount from './CreateAccount'
 
 export default function Main() {
   const { theme, mode, setMode } = useTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Login />
+      <CreateAccount />
     </View>
   )
 }

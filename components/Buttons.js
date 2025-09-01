@@ -53,8 +53,8 @@ export const DestructiveButton = ({title, style, onPress, disabled = false}) => 
 
 export const TextButton = ({title, style, onPress, disabled = false}) => {
   return <Button 
-    title={title} 
-    style={[ style, {paddingHorizontal: 15, alignSelf: "flex-start" }]} 
+    title={" " + title + " "} 
+    style={[ style, { textDecorationLine: 'underline', paddingHorizontal: 15, alignSelf: "flex-start" }]} 
     onPress={onPress} 
     disabled={disabled} 
   />
