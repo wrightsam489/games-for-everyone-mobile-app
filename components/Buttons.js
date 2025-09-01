@@ -35,32 +35,21 @@ export const SecondaryButton = ({title, style, onPress, disabled = false}) => {
   const { theme } = useTheme();
   return <Button 
     title={title} 
-    style={[style, { backgroundColor: theme.secondary}]} 
+    style={[style, { color: theme.secondary, borderWidth: 2, borderColor: theme.secondary }]} 
     onPress={onPress} 
     disabled={disabled} 
   />
 }
 
-export const WarningButton = ({title, style, onPress, disabled = false}) => {
+export const DestructiveButton = ({title, style, onPress, disabled = false}) => {
   const { theme } = useTheme();
   return <Button 
     title={title} 
-    style={[style, { backgroundColor: theme.warning}]} 
+    style={[style, { color: theme.destructive, borderWidth: 2, borderColor: theme.destructive }]} 
     onPress={onPress} 
     disabled={disabled} 
   />
 }
-
-export const ErrorButton = ({title, style, onPress, disabled = false}) => {
-  const { theme } = useTheme();
-  return <Button 
-    title={title} 
-    style={[style, { backgroundColor: theme.error}]} 
-    onPress={onPress} 
-    disabled={disabled} 
-  />
-}
-
 
 export const TextButton = ({title, style, onPress, disabled = false}) => {
   return <Button 

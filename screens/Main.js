@@ -1,6 +1,8 @@
 import { StyleSheet, View } from 'react-native'
-import Components from './Components'
 import { useTheme } from '../contexts/ThemeContext'
+
+import Components from './Components'
+import Login from './Login'
 
 export default function Main() {
   const { theme, mode, setMode } = useTheme();

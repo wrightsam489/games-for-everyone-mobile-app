@@ -3,7 +3,7 @@ import { Switch, View, Text, useColorScheme } from 'react-native'
 
 import { useTheme } from '../contexts/ThemeContext'
 
-import { PrimaryButton, SecondaryButton, WarningButton, ErrorButton, TextButton, IconButton } from '../components/Buttons'
+import { PrimaryButton, SecondaryButton, DestructiveButton, TextButton, IconButton } from '../components/Buttons'
 import { TextField, SearchBar, SecureTextField } from '../components/TextFields'
 import { Title, Heading, Subheading, BodyText } from '../components/Texts'
 
@@ -31,8 +31,7 @@ export default function Components() {
       <View>
         <PrimaryButton title={'Primary'} />
         <SecondaryButton title={'Secondary'} />
-        <WarningButton title={'Warning'} />
-        <ErrorButton title={'Error'} />
+        <DestructiveButton title={'Error'} />
         <TextButton title={'Text'} />
         <IconButton iconColor={mode === "dark" ? 'white' : 'black'}/>
       </View>
