@@ -60,13 +60,15 @@ export const TextButton = ({title, style, onPress, disabled = false}) => {
   />
 }
 
-export const IconButton = ({ onPress, iconName = 'search', iconColor = 'black' }) => {
+export const IconButton = ({ onPress, iconName = 'search' }) => {
+  const { mode } = useTheme();
+
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [
         styles.icon,
         pressed && styles.pressed
       ]}>
-      <Icon name={iconName} size={25} color={iconColor}/>
+      <Icon name={iconName} size={25} color={mode === "dark" ? 'white' : 'black'}/>
     </Pressable>
   );
 }

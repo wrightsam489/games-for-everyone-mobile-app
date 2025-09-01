@@ -33,7 +33,6 @@ export default function Components() {
         <SecondaryButton title={'Secondary'} />
         <DestructiveButton title={'Error'} />
         <TextButton title={'Text'} />
-        <IconButton iconColor={mode === "dark" ? 'white' : 'black'}/>
       </View>
     </View>
   )

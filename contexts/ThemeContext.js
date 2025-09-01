@@ -21,7 +21,7 @@ const darkTheme = {
   text: '#F5F5F5',
   disabled: '#7A7A7A',
   highlight: '#E91E63',
-  textField: '#888888',
+  textField: '#3d3d3dff',
 }
 
 export const ThemeContext = createContext(lightTheme);

@@ -9,7 +9,7 @@ export default function Main() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Components />
+      <Login />
     </View>
   )
 }
