@@ -1,7 +1,7 @@
 import React, {} from 'react';
 import { Text } from 'react-native';
 
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export const Title = ({style, children}) => {
   const { theme } = useTheme();
@@ -29,7 +29,9 @@ export const Heading = ({style, children}) => {
       { 
         color: theme.text, 
         fontSize: 25,
-        fontWeight: 400
+        fontWeight: 400,
+        marginTop: 15,
+        marginBottom: 5
       }]
     }>
       {children}

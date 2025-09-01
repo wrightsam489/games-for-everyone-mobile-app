@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native'
-import { TextField } from '../components/TextFields';
-import { Title, Heading } from '../components/Texts';
-import { PrimaryButton } from '../components/Buttons';
+import { TextField } from '../components/reusable/TextFields';
+import { Title, Heading } from '../components/reusable/Texts';
+import { PrimaryButton } from '../components/reusable/Buttons';
 
 export default function CreateAccount() {
   return (

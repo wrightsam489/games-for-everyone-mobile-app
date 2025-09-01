@@ -1,6 +1,6 @@
 import { StyleSheet, View, TextInput } from 'react-native'
 import { IconButton } from './Buttons'
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export const TextField = ({style, placeholder, secureTextEntry = false}) => {
   const { theme } = useTheme()
@@ -27,7 +27,7 @@ export function SearchBar({style, placeholder = 'Search', secureTextEntry = fals
   return (
     <View style={[style, styles.searchBar, { backgroundColor: theme.textField }]}>
       <TextField
-        style={[style, { flex: 1 }]}
+        style={[{ flex: 1 }]}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
       />

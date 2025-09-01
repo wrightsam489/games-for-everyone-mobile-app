@@ -1,4 +1,4 @@
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { StyleSheet, Text, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native'
 
-import { PrimaryButton, TextButton } from '../components/Buttons';
-import { TextField, SecureTextField } from '../components/TextFields';
+import { PrimaryButton, TextButton } from '../components/reusable/Buttons';
+import { TextField, SecureTextField } from '../components/reusable/TextFields';
 
-import { Title } from '../components/Texts';
+import { Title } from '../components/reusable/Texts';
 
 export default function Login() {
 

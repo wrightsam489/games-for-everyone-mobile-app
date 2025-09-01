@@ -11,6 +11,7 @@ const lightTheme = {
   disabled: '#7A7A7A',
   highlight: '#E91E63',
   textField: '#ffffff',
+  card: '#ffffff'
 }
 
 const darkTheme = {
@@ -22,6 +23,7 @@ const darkTheme = {
   disabled: '#7A7A7A',
   highlight: '#E91E63',
   textField: '#3d3d3dff',
+  card: '#3d3d3dff'
 }
 
 export const ThemeContext = createContext(lightTheme);

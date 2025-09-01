@@ -3,9 +3,9 @@ import { Switch, View, Text, useColorScheme } from 'react-native'
 
 import { useTheme } from '../contexts/ThemeContext'
 
-import { PrimaryButton, SecondaryButton, DestructiveButton, TextButton, IconButton } from '../components/Buttons'
-import { TextField, SearchBar, SecureTextField } from '../components/TextFields'
-import { Title, Heading, Subheading, BodyText } from '../components/Texts'
+import { PrimaryButton, SecondaryButton, DestructiveButton, TextButton, IconButton } from '../components/reusable/Buttons'
+import { TextField, SearchBar, SecureTextField } from '../components/reusable/TextFields'
+import { Title, Heading, Subheading, BodyText } from '../components/reusable/Texts'
 
 export default function Components() {
   const { mode, setMode } = useTheme();
