@@ -1,4 +1,4 @@
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 import { StyleSheet, Text, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -60,15 +60,17 @@ export const TextButton = ({title, style, onPress, disabled = false}) => {
   />
 }
 
-export const IconButton = ({ onPress, iconName = 'search' }) => {
+export const IconButton = ({ style, onPress, iconName = 'search', size = 25, color = null }) => {
   const { mode } = useTheme();
 
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [
+        style,
         styles.icon,
+        { width: size, height: size },
         pressed && styles.pressed
       ]}>
-      <Icon name={iconName} size={25} color={mode === "dark" ? 'white' : 'black'}/>
+      <Icon name={iconName} size={size} color={ color === null ? mode === "dark" ? 'white' : 'black' : color}/>
     </Pressable>
   );
 }
@@ -82,8 +84,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   icon: {
-    width: 25,
-    height: 25,
     margin: 5 
   },
   disabled: {

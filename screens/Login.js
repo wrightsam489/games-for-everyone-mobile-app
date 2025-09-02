@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native'
 
-import { PrimaryButton, TextButton } from '../components/reusable/Buttons';
-import { TextField, SecureTextField } from '../components/reusable/TextFields';
+import { PrimaryButton, TextButton } from '../components/Buttons';
+import { TextField, SecureTextField } from '../components/TextFields';
 
-import { Title } from '../components/reusable/Texts';
+import { Title } from '../components/Texts';
 
 export default function Login() {
 
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     rowGap: 30,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginHorizontal: 15,
   },
   vSection: {
     rowGap: 15

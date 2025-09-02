@@ -3,16 +3,16 @@ import { Switch, View, Text, useColorScheme } from 'react-native'
 
 import { useTheme } from '../contexts/ThemeContext'
 
-import { PrimaryButton, SecondaryButton, DestructiveButton, TextButton, IconButton } from '../components/reusable/Buttons'
-import { TextField, SearchBar, SecureTextField } from '../components/reusable/TextFields'
-import { Title, Heading, Subheading, BodyText } from '../components/reusable/Texts'
+import { PrimaryButton, SecondaryButton, DestructiveButton, TextButton, IconButton } from '../components/Buttons'
+import { TextField, SearchBar, SecureTextField } from '../components/TextFields'
+import { Title, Heading, Subheading, BodyText } from '../components/Texts'
 
 export default function Components() {
   const { mode, setMode } = useTheme();
   const toggleSwitch = () => { setMode(!(mode === "dark") ? "dark" : "light") };
 
   return (
-    <View style={{ rowGap: 15}}>
+    <View style={{ marginHorizontal: 15, rowGap: 15}}>
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
         <BodyText>Dark mode</BodyText>
         <Switch value={mode === "dark"} onValueChange={toggleSwitch}/>

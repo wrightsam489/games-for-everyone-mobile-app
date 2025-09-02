@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native'
-import { TextField } from '../components/reusable/TextFields';
-import { Title, Heading } from '../components/reusable/Texts';
-import { PrimaryButton } from '../components/reusable/Buttons';
+import { TextField } from '../components/TextFields';
+import { Title, Heading } from '../components/Texts';
+import { PrimaryButton } from '../components/Buttons';
 
 export default function CreateAccount() {
   return (
-    <>
+    <View style={{ flex: 1, marginHorizontal: 15 }}>
       <View style={styles.container}>
         <Title>Create Account</Title>
 
@@ -31,7 +31,7 @@ export default function CreateAccount() {
 
       </View>
       <PrimaryButton title={'Create account'} style={styles.button} />
-    </>
+    </View>
   )
 }
 

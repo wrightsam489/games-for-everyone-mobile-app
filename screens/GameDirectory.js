@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet, FlatList, View, Image, Pressable, SectionList } from 'react-native'
 import { useTheme } from '../contexts/ThemeContext'
-import { Heading, Subheading } from '../components/reusable/Texts'
-import { SearchBar } from '../components/reusable/TextFields';
+import { Heading, Subheading } from '../components/Texts'
+import { SearchBar } from '../components/TextFields';
 
 const { width } = Dimensions.get('window');
 const CONTAINER_WIDTH = width * .8;
@@ -70,7 +70,7 @@ export default function GameDirectory() {
             style={styles.image}
             source={item.cover}
           />
-          <Subheading>DUCK!</Subheading>
+          <Subheading style={{padding: 5}}>Hollow Knight</Subheading>
         </Pressable>
       </View>
     )

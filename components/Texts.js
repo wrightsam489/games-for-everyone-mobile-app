@@ -1,7 +1,7 @@
 import React, {} from 'react';
 import { Text } from 'react-native';
 
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 export const Title = ({style, children}) => {
   const { theme } = useTheme();
@@ -12,7 +12,8 @@ export const Title = ({style, children}) => {
       { 
         color: theme.text, 
         fontSize: 30,
-        fontWeight: 500 
+        fontWeight: 500,
+        marginTop: 20,
       }
     ]}>
       {children}
@@ -31,7 +32,6 @@ export const Heading = ({style, children}) => {
         fontSize: 25,
         fontWeight: 400,
         marginTop: 15,
-        marginBottom: 5
       }]
     }>
       {children}
@@ -48,7 +48,8 @@ export const Subheading = ({style, children}) => {
       { 
         color: theme.text, 
         fontSize: 20,
-        fontWeight: 350 
+        fontWeight: 350,
+        marginTop: 10,
       }
     ]}>
       {children}
@@ -65,7 +66,8 @@ export const BodyText = ({style, children}, bold = false) => {
       { 
         color: theme.text, 
         fontSize: 15,
-        fontWeight: {bold} ? 325 : 275
+        fontWeight: 250,
+        marginTop: 5,
       }
     ]}>
       {children}

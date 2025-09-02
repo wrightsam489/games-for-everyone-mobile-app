@@ -1,6 +1,6 @@
 import { StyleSheet, View, TextInput } from 'react-native'
 import { IconButton } from './Buttons'
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 export const TextField = ({style, placeholder, secureTextEntry = false}) => {
   const { theme } = useTheme()

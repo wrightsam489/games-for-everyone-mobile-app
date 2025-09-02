@@ -5,13 +5,14 @@ import Components from './Components'
 import Login from './Login'
 import CreateAccount from './CreateAccount'
 import GameDirectory from './GameDirectory'
+import GameDetails from './GameDetails'
 
 export default function Main() {
-  const { theme, mode, setMode } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <GameDirectory />
+      <Login />
     </View>
   )
 }
