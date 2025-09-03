@@ -10,10 +10,10 @@ export const Title = ({style, children}) => {
     <Text style={[
       style,
       { 
-        color: theme.text, 
+        color: theme.colors.text, 
         fontSize: 30,
         fontWeight: 500,
-        marginTop: 20,
+        marginTop: 0,
       }
     ]}>
       {children}
@@ -28,10 +28,10 @@ export const Heading = ({style, children}) => {
     <Text style={[
       style, 
       { 
-        color: theme.text, 
+        color: theme.colors.text, 
         fontSize: 25,
         fontWeight: 400,
-        marginTop: 15,
+        marginTop: 0,
       }]
     }>
       {children}
@@ -46,10 +46,10 @@ export const Subheading = ({style, children}) => {
     <Text style={[
       style, 
       { 
-        color: theme.text, 
+        color: theme.colors.text, 
         fontSize: 20,
         fontWeight: 350,
-        marginTop: 10,
+        marginTop: 0,
       }
     ]}>
       {children}
@@ -64,10 +64,10 @@ export const BodyText = ({style, children}, bold = false) => {
     <Text style={[
       style, 
       { 
-        color: theme.text, 
+        color: theme.colors.text, 
         fontSize: 15,
         fontWeight: 250,
-        marginTop: 5,
+        marginTop: 0,
       }
     ]}>
       {children}

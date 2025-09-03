@@ -1,4 +1,6 @@
-import { Dimensions, StyleSheet, FlatList, View, Image, Pressable, SectionList } from 'react-native'
+import { Dimensions, StyleSheet, FlatList, SafeAreaView, View, Image, Pressable, SectionList } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+
 import { useTheme } from '../contexts/ThemeContext'
 import { Heading, Subheading } from '../components/Texts'
 import { SearchBar } from '../components/TextFields';
@@ -54,13 +56,14 @@ const DATA = [
 
 export default function GameDirectory() {
   const { theme } = useTheme()
-  const styles = makeStylesSheet(theme)
+  const styles = makeStylesSheet(theme.colors)
+  const navigation = useNavigation();
 
   function GameCard({ item }) {
     return (
       <View style={styles.item}>
         <Pressable 
-          onPress={() => {}} 
+          onPress={() => navigation.navigate('Game Details')} 
           style={({ pressed }) => [
             styles.card,
             pressed && { opacity: 0.5 }
@@ -93,21 +96,21 @@ export default function GameDirectory() {
   }
 
   return (
-    <View style={styles.container}>
-      <SearchBar style={{ marginHorizontal: 15 }} />
+    <SafeAreaView style={styles.container}>
+      <SearchBar style={{ margin: 15 }} />
       <SectionList 
-        contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={{ paddingBottom: 10, rowGap: 5 }}
         sections={DATA}
         keyExtractor={(item, index) => item.id + index}
         renderItem={() => {}}
         renderSectionHeader={({section: {genre, data}}) => (
           <>
-            <Heading style={{ marginHorizontal: 20 }}>{genre}</Heading>
+            <Heading style={{ marginHorizontal: 20, paddingBottom: 5 }}>{genre}</Heading>
             <GenreList data={data} />
           </>
         )}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 

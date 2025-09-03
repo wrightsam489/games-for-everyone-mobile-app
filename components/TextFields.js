@@ -7,8 +7,8 @@ export const TextField = ({style, placeholder, secureTextEntry = false}) => {
 
   return (
     <TextInput
-      style={[style, styles.input, { backgroundColor: theme.textField, color: theme.text }]}
-      placeholderTextColor={ theme.text }
+      style={[style, styles.input, { backgroundColor: theme.colors.textField, color: theme.colors.text }]}
+      placeholderTextColor={ theme.colors.text }
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
       />
@@ -25,7 +25,7 @@ export function SearchBar({style, placeholder = 'Search', secureTextEntry = fals
   const { theme } = useTheme()
 
   return (
-    <View style={[style, styles.searchBar, { backgroundColor: theme.textField }]}>
+    <View style={[style, styles.searchBar, { backgroundColor: theme.colors.textField }]}>
       <TextField
         style={[{ flex: 1 }]}
         placeholder={placeholder}

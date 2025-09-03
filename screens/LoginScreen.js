@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 import { PrimaryButton, TextButton } from '../components/Buttons';
 import { TextField, SecureTextField } from '../components/TextFields';
 
 import { Title } from '../components/Texts';
 
-export default function Login() {
+export default function LoginScreen() {
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -14,11 +16,11 @@ export default function Login() {
         <Title style={styles.title}>Gaming for Everyone</Title>
         <TextField placeholder={'Username'}/>
         <SecureTextField placeholder={'Password'}/>
-        <PrimaryButton title={"Login"} />
+        <PrimaryButton title={"Login"} onPress={() => navigation.navigate('Home')}/>
 
         <View style={styles.hSection}>
-          <TextButton title={"Create account"} />
-          <TextButton title={"Enter as guest"} />
+          <TextButton title={"Create account"} onPress={() => navigation.navigate('Create Account')}/>
+          <TextButton title={"Enter as guest"} onPress={() => navigation.navigate('Home')}/>
         </View>
       </View>
     </View>

@@ -38,24 +38,24 @@ export default function GameDetails() {
   }
 
   return (
-    <ScrollView style={{ rowGap: 15 }}>
+    <ScrollView>
       <Image 
         style={{ width: IMAGE_WIDTH, height: IMAGE_HEIGHT }}
         source={require('../assets/duck.png')}
       />
-      <View style={{paddingHorizontal: 15}}>
+      <View style={{ paddingHorizontal: 15, marginTop: 15 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
           <Title>{DEMO_GAME.title}</Title>
-          <View style={{ flexDirection: 'row', marginTop: 20 }}>
+          <View style={{ flexDirection: 'row' }}>
             <IconButton onPress={() => rateGame('good')} iconName={ rating == 'good' ? 'thumbs-up' : 'thumbs-o-up'} size={35} color={'green'}/>
             <IconButton onPress={() => rateGame('bad')} iconName={ rating == 'bad' ? 'thumbs-down' : 'thumbs-o-down'} size={35} color={'red'}/>
           </View>
         </View>
 
-        <Heading>Description</Heading>
+        <Heading style={{ paddingTop: 10, paddingBottom: 5 }}>Description</Heading>
         <BodyText>{DEMO_GAME.description}</BodyText>
 
-        <Heading>Info</Heading>
+        <Heading style={{ paddingTop: 10, paddingBottom: 5 }}>Info</Heading>
         {
           Object.entries(DEMO_GAME)
             .filter(([_k, value], _i) => Array.isArray(value))
@@ -73,14 +73,14 @@ export default function GameDetails() {
             })
         }
 
-        <Heading>Status</Heading>
+        <Heading style={{ paddingTop: 10, paddingBottom: 5 }}>Status</Heading>
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
           <SecondaryButton style={{paddingHorizontal: 10, borderRadius: 0}} title={'Playing'}/>
           <SecondaryButton style={{paddingHorizontal: 10, borderRadius: 0}} title={'Plan to play'}/>
           <SecondaryButton style={{paddingHorizontal: 10, borderRadius: 0}} title={'On hold'}/>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 15 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 15, paddingBottom: 25 }}>
           <SecondaryButton style={{paddingHorizontal: 10, borderRadius: 0}} title={'Dropped'}/>
           <PrimaryButton style={{paddingHorizontal: 10, borderRadius: 0}} title={'Completed'}/>
         </View>

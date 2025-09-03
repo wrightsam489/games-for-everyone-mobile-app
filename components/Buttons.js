@@ -14,7 +14,7 @@ const Button = ({title, style, onPress, disabled = false}) => {
       ]}>
       <Text style={[
         styles.text,
-        { color: theme.text },
+        { color: theme.colors.text },
         disabled ? styles.disabled : style
       ]}>{title}</Text>
     </Pressable>
@@ -25,7 +25,7 @@ export const PrimaryButton = ({title, style, onPress, disabled = false}) => {
   const { theme } = useTheme();
   return <Button 
     title={title} 
-    style={[style, { backgroundColor: theme.primary}]} 
+    style={[style, { backgroundColor: theme.colors.primary}]} 
     onPress={onPress} 
     disabled={disabled} 
   />
@@ -35,7 +35,7 @@ export const SecondaryButton = ({title, style, onPress, disabled = false}) => {
   const { theme } = useTheme();
   return <Button 
     title={title} 
-    style={[style, { color: theme.secondary, borderWidth: 2, borderColor: theme.secondary }]} 
+    style={[style, { color: theme.colors.secondary, borderWidth: 2, borderColor: theme.colors.secondary }]} 
     onPress={onPress} 
     disabled={disabled} 
   />
@@ -45,7 +45,7 @@ export const DestructiveButton = ({title, style, onPress, disabled = false}) => 
   const { theme } = useTheme();
   return <Button 
     title={title} 
-    style={[style, { color: theme.destructive, borderWidth: 2, borderColor: theme.destructive }]} 
+    style={[style, { color: theme.colors.destructive, borderWidth: 2, borderColor: theme.colors.destructive }]} 
     onPress={onPress} 
     disabled={disabled} 
   />
