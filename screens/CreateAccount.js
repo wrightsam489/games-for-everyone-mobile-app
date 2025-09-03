@@ -6,7 +6,7 @@ import { PrimaryButton } from '../components/Buttons';
 
 export default function CreateAccount() {
   return (
-    <SafeAreaView style={{ flex: 1, marginHorizontal: 15 }}>
+    <SafeAreaView style={{ flex: 1, marginTop: 15, marginHorizontal: 15, marginBlock: 30 }}>
       <View style={styles.container}>
         <Title>Create Account</Title>
 
@@ -43,7 +43,4 @@ const styles = StyleSheet.create({
   section: {
     rowGap: 15
   },
-  button: {
-    marginBottom: 40
-  }
 })

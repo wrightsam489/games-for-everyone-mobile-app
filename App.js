@@ -1,12 +1,12 @@
 import { ThemeProvider } from './contexts/ThemeContext'
 
-import RootStack from './RootStack'
+import RootNavigator from './stacks/RootNavigator'
 import Components from './screens/Components'
 
 export default function App() {
   return (
     <ThemeProvider>
-      <RootStack />
+      <RootNavigator />
     </ThemeProvider>
   );
 }
