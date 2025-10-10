@@ -22,76 +22,11 @@ const CONTAINER_SPACING = (width - CONTAINER_WIDTH) / 2;
 const IMAGE_WIDTH = CONTAINER_WIDTH * 0.9;
 const IMAGE_HEIGHT = IMAGE_WIDTH;
 
-const DATA = [
-  {
-    genre: "Genre 1",
-    data: [
-      { id: 1, title: "Title 1", cover: require("../assets/duck.png") },
-      { id: 2, title: "Title 2", cover: require("../assets/duck.png") },
-      { id: 3, title: "Title 3", cover: require("../assets/duck.png") },
-    ],
-  },
-  {
-    genre: "Genre 2",
-    data: [
-      { id: 1, title: "Title 1", cover: require("../assets/duck.png") },
-      { id: 2, title: "Title 2", cover: require("../assets/duck.png") },
-      { id: 3, title: "Title 3", cover: require("../assets/duck.png") },
-    ],
-  },
-  {
-    genre: "Genre 3",
-    data: [
-      { id: 1, title: "Title 1", cover: require("../assets/duck.png") },
-      { id: 2, title: "Title 2", cover: require("../assets/duck.png") },
-      { id: 3, title: "Title 3", cover: require("../assets/duck.png") },
-    ],
-  },
-  {
-    genre: "Genre 4",
-    data: [
-      { id: 1, title: "Title 1", cover: require("../assets/duck.png") },
-      { id: 2, title: "Title 2", cover: require("../assets/duck.png") },
-      { id: 3, title: "Title 3", cover: require("../assets/duck.png") },
-    ],
-  },
-  {
-    genre: "Genre 5",
-    data: [
-      { id: 1, title: "Title 1", cover: require("../assets/duck.png") },
-      { id: 2, title: "Title 2", cover: require("../assets/duck.png") },
-      { id: 3, title: "Title 3", cover: require("../assets/duck.png") },
-    ],
-  },
-];
-
 export default function GameDirectory() {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme.colors);
   const navigation = useNavigation();
-
-  const API_BASE_URL =
-    Platform.OS === "android"
-      ? "http://10.0.2.2:5000"
-      : "http://localhost:5000";
-
   const [games, setGames] = useState([]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    await fetch(`${API_BASE_URL}/games/genre?id=14`)
-      .then((response) => response.json())
-      .then((json) => {
-        setGames(json);
-      })
-      .catch((err) => {
-        console.error("Fetch Error:", err);
-      })
-      .finally();
-  };
 
   function GameCard({ item }) {
     return (

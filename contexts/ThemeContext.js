@@ -2,7 +2,7 @@ import { createContext, useEffect, useContext, useState, useMemo } from "react";
 import { useColorScheme } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import FontStyles from "../styles/FontStyles";
+import FontStyles from "../styles/FontStyles.js";
 
 const lightTheme = {
   dark: false,

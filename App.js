@@ -1,7 +1,6 @@
-import { ThemeProvider } from './contexts/ThemeContext'
+import { ThemeProvider } from "./contexts/ThemeContext";
 
-import RootNavigator from './stacks/RootNavigator'
-import Components from './screens/Components'
+import RootNavigator from "./navigation/navigators/RootNavigator";
 
 export default function App() {
   return (
