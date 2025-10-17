@@ -1,6 +1,6 @@
 import { API_BASE_URL_ANDROID, API_BASE_URL_IOS } from "@env";
 import { Platform } from "react-native";
-import { createApiClient } from "./apiClient";
+import { createApiClient } from "./ApiClientFactory";
 
 const API_BASE_URL =
   Platform.OS === "android" ? API_BASE_URL_ANDROID : API_BASE_URL_IOS;
@@ -22,7 +22,7 @@ export const gfeClient = {
   },
 
   getGameByGenre: async (id) => {
-    return gfeClientInstance.get("/game/genre", { params: { id } });
+    return gfeClientInstance.get("/games/genre", { params: { id } });
   },
 
   getGameDetails: async (game_id) => {

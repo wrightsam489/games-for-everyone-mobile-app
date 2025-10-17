@@ -11,12 +11,8 @@ import {
 } from "react-native";
 
 import { BodyText, Heading, Subheading, Title } from "../components/Texts";
-import {
-  IconButton,
-  PrimaryButton,
-  SecondaryButton,
-} from "../components/Buttons";
 import "../utils/string.extensions";
+import { GameService } from "../api/services/gameService";
 
 const { width } = Dimensions.get("window");
 const IMAGE_WIDTH = width;
@@ -28,6 +24,41 @@ export default function GameDetails({ route }) {
   const { gameId } = route.params;
   const [game, setGame] = useState(null);
   const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchGame().then((game) => {
+      setGame(game);
+    });
+  }, []);
+
+  const fetchGame = async () => {
+    try {
+      return await GameService.getGameDetails(gameId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      {game ? (
+        <ScrollView>
+          <Cover />
+          <View style={{ paddingHorizontal: 15, marginTop: 15 }}>
+            <TitleDescription />
+            <Details />
+          </View>
+        </ScrollView>
+      ) : isLoading ? (
+        <ActivityIndicator
+          style={{ flex: 1, justifyContent: "center", alignContent: "center" }}
+          size="large"
+        />
+      ) : (
+        <></>
+      )}
+    </>
+  );
 
   function Cover() {
     return (
@@ -49,10 +80,14 @@ export default function GameDetails({ route }) {
     return (
       <>
         <Title>{game.title}</Title>
-        <Heading style={{ paddingTop: 10, paddingBottom: 5 }}>
-          Description
-        </Heading>
-        <BodyText>{game.description}</BodyText>
+        {game.description && (
+          <>
+            <Heading style={{ paddingTop: 10, paddingBottom: 5 }}>
+              Description
+            </Heading>
+            <BodyText>{game.description}</BodyText>
+          </>
+        )}
       </>
     );
   }
@@ -88,25 +123,4 @@ export default function GameDetails({ route }) {
       </>
     );
   }
-
-  return (
-    <>
-      {game ? (
-        <ScrollView>
-          <Cover />
-          <View style={{ paddingHorizontal: 15, marginTop: 15 }}>
-            <TitleDescription />
-            <Details />
-          </View>
-        </ScrollView>
-      ) : isLoading ? (
-        <ActivityIndicator
-          style={{ flex: 1, justifyContent: "center", alignContent: "center" }}
-          size="large"
-        />
-      ) : (
-        <></>
-      )}
-    </>
-  );
 }
