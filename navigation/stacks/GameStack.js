@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { IconButton } from "../../components/Buttons";
+import { IconButton } from "../../components/common/Buttons";
 import GameDirectory from "../../screens/GameDirectory";
 import GameDetails from "../../screens/GameDetails";
 

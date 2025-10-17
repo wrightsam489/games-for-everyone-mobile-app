@@ -10,7 +10,12 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-import { BodyText, Heading, Subheading, Title } from "../components/Texts";
+import {
+  BodyText,
+  Heading,
+  Subheading,
+  Title,
+} from "../components/common/Texts";
 import "../utils/string.extensions";
 import { GameService } from "../api/services/gameService";
 

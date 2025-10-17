@@ -9,13 +9,18 @@ import {
   DestructiveButton,
   TextButton,
   IconButton,
-} from "../components/Buttons";
+} from "../components/common/Buttons";
 import {
   TextField,
   SearchBar,
   SecureTextField,
-} from "../components/TextFields";
-import { Title, Heading, Subheading, BodyText } from "../components/Texts";
+} from "../components/common/TextFields";
+import {
+  Title,
+  Heading,
+  Subheading,
+  BodyText,
+} from "../components/common/Texts";
 
 export default function Components() {
   const { mode, setMode } = useTheme();
