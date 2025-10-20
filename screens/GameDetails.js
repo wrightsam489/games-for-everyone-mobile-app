@@ -1,44 +1,51 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dimensions,
   View,
   Image,
-  Pressable,
   ScrollView,
-  Platform,
-  Button,
   ActivityIndicator,
+  StyleSheet,
 } from "react-native";
 
-import {
-  BodyText,
-  Heading,
-  Subheading,
-  Title,
-} from "../components/common/Texts";
+import { BodyText, Heading, Title } from "../components/common/Texts";
 import "../utils/string.extensions";
 import { GameService } from "../api/services/gameService";
+import { useTheme } from "../contexts/ThemeContext";
+import ButtonGroup from "../components/common/ButtonGroup";
 
 const { width } = Dimensions.get("window");
 const IMAGE_WIDTH = width;
 const IMAGE_HEIGHT = (IMAGE_WIDTH * 2) / 3;
-const ROW_LABEL_WIDTH = width * 0.25;
-const ROW_VALUE_WIDTH = width - ROW_LABEL_WIDTH;
+const ROW_LABEL_FLEX_WIDTH = 0.2;
+const ROW_VALUE_FLEX_WIDTH = 1 - ROW_LABEL_FLEX_WIDTH;
+
+const relationOptions = [
+  "Playing",
+  "Plan To Play",
+  "Completed",
+  "On Hold",
+  "Drop",
+];
 
 export default function GameDetails({ route }) {
   const { gameId } = route.params;
+  const { theme } = useTheme();
+  const styles = makeStylesSheet(theme.colors);
+
   const [game, setGame] = useState(null);
-  const [isLoading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchGame().then((game) => {
-      setGame(game);
+    fetchGame().finally(() => {
+      setLoading(false);
     });
   }, []);
 
   const fetchGame = async () => {
     try {
-      return await GameService.getGameDetails(gameId);
+      const data = await GameService.getGameDetails(gameId);
+      setGame(data);
     } catch (error) {
       console.error(error);
     }
@@ -46,21 +53,20 @@ export default function GameDetails({ route }) {
 
   return (
     <>
-      {game ? (
-        <ScrollView>
-          <Cover />
-          <View style={{ paddingHorizontal: 15, marginTop: 15 }}>
-            <TitleDescription />
-            <Details />
-          </View>
-        </ScrollView>
-      ) : isLoading ? (
+      {loading ? (
         <ActivityIndicator
-          style={{ flex: 1, justifyContent: "center", alignContent: "center" }}
-          size="large"
+          size={"large"}
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         />
       ) : (
-        <></>
+        <ScrollView>
+          <Cover />
+          <View style={{ marginHorizontal: 15, marginTop: 15 }}>
+            <TitleDescription />
+            <Details />
+            <Relation />
+          </View>
+        </ScrollView>
       )}
     </>
   );
@@ -87,9 +93,7 @@ export default function GameDetails({ route }) {
         <Title>{game.title}</Title>
         {game.description && (
           <>
-            <Heading style={{ paddingTop: 10, paddingBottom: 5 }}>
-              Description
-            </Heading>
+            <Heading style={styles.heading}>Description</Heading>
             <BodyText>{game.description}</BodyText>
           </>
         )}
@@ -100,26 +104,34 @@ export default function GameDetails({ route }) {
   function Details() {
     return (
       <>
-        <Heading style={{ paddingTop: 10, paddingBottom: 5 }}>Info</Heading>
+        <Heading style={styles.heading}>Info</Heading>
         {Object.entries(game)
           .filter(([_k, value], _i) => Array.isArray(value))
           .map(([key, value], _) => {
             return (
               <>
                 {value.length > 0 && (
-                  <View style={{ flexDirection: "row" }}>
-                    <BodyText style={{ width: ROW_LABEL_WIDTH }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                    }}
+                  >
+                    <BodyText
+                      style={{
+                        flex: ROW_LABEL_FLEX_WIDTH,
+                      }}
+                    >
                       {key.capitalizeWords()}:
                     </BodyText>
-                    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                      <BodyText style={{ width: ROW_VALUE_WIDTH }}>
-                        {value.map((item, index) =>
-                          index < value.length - 1
-                            ? item.name + ", "
-                            : item.name
-                        )}
-                      </BodyText>
-                    </View>
+                    <BodyText
+                      style={{
+                        flex: ROW_VALUE_FLEX_WIDTH,
+                      }}
+                    >
+                      {value.map((item, index) =>
+                        index < value.length - 1 ? item.name + ", " : item.name
+                      )}
+                    </BodyText>
                   </View>
                 )}
               </>
@@ -128,4 +140,17 @@ export default function GameDetails({ route }) {
       </>
     );
   }
+
+  function Relation() {
+    return (
+      <>
+        <Heading style={styles.heading}>Status</Heading>
+        <ButtonGroup items={relationOptions} />
+      </>
+    );
+  }
 }
+
+const makeStylesSheet = (theme) => {
+  return StyleSheet.create({ heading: { paddingTop: 15, paddingBottom: 0 } });
+};

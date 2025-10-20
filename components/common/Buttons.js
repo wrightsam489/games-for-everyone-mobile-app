@@ -1,3 +1,4 @@
+import React, { act, useState } from "react";
 import { useTheme } from "../../contexts/ThemeContext";
 import { StyleSheet, Text, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -9,10 +10,10 @@ const Button = ({ title, style, onPress, disabled = false }) => {
   return (
     <Pressable
       onPress={disabled ? () => {} : onPress}
-      style={({ pressed }) => [pressed && styles.active]}
+      style={({ pressed }) => [pressed && styles.active, styles.button, style]}
       disabled={disabled}
     >
-      <Text style={[styles.text, style]}>{title}</Text>
+      <Text style={[styles.text]}>{title}</Text>
     </Pressable>
   );
 };
@@ -111,21 +112,53 @@ export const IconButton = ({
   );
 };
 
+export const ToggleButton = ({
+  title = "Toggle",
+  style,
+  onPress,
+  isActive = false,
+  disabled = false,
+}) => {
+  const { theme } = useTheme();
+  const styles = makeStylesSheet(theme);
+
+  return (
+    <Button
+      title={title}
+      style={[
+        disabled
+          ? isActive
+            ? styles.disabled
+            : styles.disabledOutline
+          : isActive
+          ? styles.primary
+          : styles.secondary,
+        style,
+      ]}
+      onPress={onPress}
+      disabled={disabled}
+    />
+  );
+};
+
 const makeStylesSheet = (theme) => {
   return StyleSheet.create({
+    button: {
+      borderRadius: 5,
+      padding: 7.5,
+      borderWidth: 2,
+      borderColor: "#0000",
+    },
     text: {
       color: theme.colors.text,
       fontSize: 15,
       textAlign: "center",
-      padding: 7.5,
-      borderRadius: 5,
     },
     primary: {
       backgroundColor: theme.colors.primary,
     },
     secondary: {
       borderColor: theme.colors.secondary,
-      borderWidth: 2,
     },
     destructive: {
       backgroundColor: theme.colors.destructive,

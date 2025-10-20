@@ -9,6 +9,7 @@ import {
   DestructiveButton,
   TextButton,
   IconButton,
+  ToggleButton,
 } from "../components/common/Buttons";
 import {
   TextField,
@@ -21,6 +22,15 @@ import {
   Subheading,
   BodyText,
 } from "../components/common/Texts";
+import ButtonGroup from "../components/common/ButtonGroup";
+
+const relationOptions = [
+  "Playing",
+  "Plan To Play",
+  "Completed",
+  "On Hold",
+  "Drop",
+];
 
 export default function Components() {
   const { mode, setMode } = useTheme();
@@ -30,7 +40,7 @@ export default function Components() {
 
   return (
     <ScrollView>
-      <View style={{ marginHorizontal: 15, rowGap: 15 }}>
+      <View style={{ marginHorizontal: 15, rowGap: 10, marginBottom: 30 }}>
         <View
           style={{
             flexDirection: "row",
@@ -48,20 +58,27 @@ export default function Components() {
           <BodyText>BodyText</BodyText>
         </View>
 
-        <View>
-          <TextField placeholder={"Username"} />
-          <SecureTextField placeholder={"Password"} />
-          <SearchBar placeholder={"Search"} />
-        </View>
+        <TextField placeholder={"Username"} />
+        <SecureTextField placeholder={"Password"} />
+        <SearchBar placeholder={"Search"} />
 
         <PrimaryButton title={"Primary"} />
         <SecondaryButton title={"Secondary"} />
         <DestructiveButton title={"Error"} />
         <TextButton title={"Text"} />
+
         <PrimaryButton title={"Primary"} disabled={true} />
         <SecondaryButton title={"Secondary"} disabled={true} />
         <DestructiveButton title={"Error"} disabled={true} />
         <TextButton title={"Text"} disabled={true} />
+
+        <ToggleButton isActive={true} />
+        <ToggleButton />
+        <ToggleButton isActive={true} disabled={true} />
+        <ToggleButton disabled={true} />
+
+        <ButtonGroup items={relationOptions} />
+        <ButtonGroup items={relationOptions} isSingleSelection={false} />
       </View>
     </ScrollView>
   );

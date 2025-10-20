@@ -9,7 +9,6 @@ import {
 import { GenreService } from "../api/services/genreService";
 import { useTheme } from "../contexts/ThemeContext";
 import { SearchBar } from "../components/common/TextFields";
-import { PrimaryButton } from "../components/common/Buttons";
 
 import Section from "../components/directory/Section";
 
@@ -26,7 +25,12 @@ export default function GameDirectory() {
 
   const fetchSections = async () => {
     setLoading(true);
-    const data = [fetchGenre()];
+    const data = [
+      fetchThemes(),
+      fetchGenre(),
+      fetchFranchise(),
+      fetchCompanies(),
+    ];
     await Promise.all(data).finally(() => {
       setLoading(false);
     });
