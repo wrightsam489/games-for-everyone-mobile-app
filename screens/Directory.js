@@ -7,12 +7,14 @@ import {
 } from "react-native";
 
 import { GenreService } from "../api/services/genreService";
+import { ThemeService } from "../api/services/themeService";
+
 import { useTheme } from "../contexts/ThemeContext";
 import { SearchBar } from "../components/common/TextFields";
 
 import Section from "../components/directory/Section";
 
-export default function GameDirectory() {
+export default function Directory() {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme.colors);
 
@@ -26,30 +28,37 @@ export default function GameDirectory() {
   const fetchSections = async () => {
     setLoading(true);
     const data = [
+      // fetchCompanies(),
+      // fetchFranchise(),
+      // fetchGenre(),
       fetchThemes(),
-      fetchGenre(),
-      fetchFranchise(),
-      fetchCompanies(),
     ];
     await Promise.all(data).finally(() => {
       setLoading(false);
     });
   };
 
-  const fetchThemes = async () => {};
+  const fetchCompanies = async () => {};
+
+  const fetchFranchise = async () => {};
 
   const fetchGenre = async () => {
     try {
       const data = await GenreService.getAllGenres();
-      setSections(data);
+      setSections([...sections, ...data]);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const fetchFranchise = async () => {};
-
-  const fetchCompanies = async () => {};
+  const fetchThemes = async () => {
+    try {
+      const data = await ThemeService.getAllThemes();
+      setSections([...sections, ...data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, margin: 0 }}>
@@ -62,6 +71,7 @@ export default function GameDirectory() {
         <>
           <SearchBar
             style={{ margin: 15, boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)" }}
+            dis
           />
           <FlatList
             data={sections}

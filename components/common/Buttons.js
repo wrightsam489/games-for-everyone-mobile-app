@@ -3,7 +3,13 @@ import { useTheme } from "../../contexts/ThemeContext";
 import { StyleSheet, Text, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const Button = ({ title, style, onPress, disabled = false }) => {
+const IconLocation = Object.freeze({
+  none: "none",
+  leading: "leading",
+  trailing: "trailing",
+});
+
+const Button = ({ title, style, textStyle, onPress, disabled = false }) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
@@ -13,7 +19,7 @@ const Button = ({ title, style, onPress, disabled = false }) => {
       style={({ pressed }) => [pressed && styles.active, styles.button, style]}
       disabled={disabled}
     >
-      <Text style={[styles.text]}>{title}</Text>
+      <Text style={[styles.text, textStyle]}>{title}</Text>
     </Pressable>
   );
 };
@@ -77,7 +83,7 @@ export const TextButton = ({ title, style, onPress, disabled = false }) => {
   return (
     <Button
       title={" " + title + " "}
-      style={[style, disabled ? styles.disabledText : styles.underline]}
+      textStyle={[style, disabled ? styles.disabledText : styles.underline]}
       onPress={onPress}
       disabled={disabled}
     />
@@ -99,7 +105,7 @@ export const IconButton = ({
       onPress={onPress}
       style={({ pressed }) => [
         style,
-        { width: size, height: size, margin: 7.5 },
+        { width: size, height: size },
         pressed && styles.active,
       ]}
     >
@@ -118,6 +124,7 @@ export const ToggleButton = ({
   onPress,
   isActive = false,
   disabled = false,
+  children,
 }) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);

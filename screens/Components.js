@@ -29,7 +29,7 @@ const relationOptions = [
   "Plan To Play",
   "Completed",
   "On Hold",
-  "Drop",
+  "Dropped",
 ];
 
 export default function Components() {
@@ -40,7 +40,7 @@ export default function Components() {
 
   return (
     <ScrollView>
-      <View style={{ marginHorizontal: 15, rowGap: 10, marginBottom: 30 }}>
+      <View style={{ marginHorizontal: 15, rowGap: 10, marginBottom: 15 }}>
         <View
           style={{
             flexDirection: "row",

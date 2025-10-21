@@ -16,7 +16,7 @@ import GameCard from "../directory/GameCard";
 const { width } = Dimensions.get("window");
 const CONTAINER_WIDTH = width * 0.5;
 const CONTAINER_SPACING = (width - CONTAINER_WIDTH) / 2;
-const ACTIVITY_HEIGHT = CONTAINER_WIDTH * 0.9;
+const ACTIVITY_HEIGHT = CONTAINER_WIDTH * 1.2;
 
 export default function Section({ section }) {
   const { theme } = useTheme();
@@ -32,7 +32,7 @@ export default function Section({ section }) {
   const fetchGames = async () => {
     try {
       setLoading(true);
-      const data = await GameService.getGameByGenre(section.id);
+      const data = await GameService.getGamesByTheme(section.id);
       setGames(data);
     } catch (error) {
       console.error(error);

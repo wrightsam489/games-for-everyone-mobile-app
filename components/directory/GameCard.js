@@ -22,7 +22,7 @@ export default function GameCard({ game }) {
         style={({ pressed }) => [styles.card, pressed && { opacity: 0.5 }]}
       >
         <Image style={styles.image} source={{ uri: game.cover }} />
-        <Subheading style={{ padding: 5, width: CARD_WIDTH }}>
+        <Subheading style={{ padding: 5, width: CARD_WIDTH }} numberOfLines={1}>
           {game.title}
         </Subheading>
       </Pressable>

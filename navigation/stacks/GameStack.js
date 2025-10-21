@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { IconButton } from "../../components/common/Buttons";
-import GameDirectory from "../../screens/GameDirectory";
-import GameDetails from "../../screens/GameDetails";
+import Directory from "../../screens/Directory";
+import Details from "../../screens/Details";
 
 const Stack = createStackNavigator();
 
@@ -13,18 +13,19 @@ export default function GameStack({ navigation }) {
         headerRight: () => {
           return (
             <IconButton
+              style={{ margin: 15 }}
               onPress={() => {
                 navigation.toggleDrawer();
               }}
               iconName="navicon"
-              size={25}
+              size={30}
             />
           );
         },
       }}
     >
-      <Stack.Screen name="Home" component={GameDirectory} />
-      <Stack.Screen name="Game Details" component={GameDetails} />
+      <Stack.Screen name="Home" component={Directory} />
+      <Stack.Screen name="Game Details" component={Details} />
     </Stack.Navigator>
   );
 }

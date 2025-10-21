@@ -7,7 +7,11 @@ export default function ButtonGroup({ items = [], isSingleSelection = true }) {
 
   const alterSelection = (index) => {
     if (isSingleSelection) {
-      setActiveIndexes([index]);
+      if (activeIndexes.includes(index)) {
+        setActiveIndexes([]);
+      } else {
+        setActiveIndexes([index]);
+      }
     } else {
       if (activeIndexes.includes(index)) {
         const newArray = activeIndexes.filter((i) => i !== index);

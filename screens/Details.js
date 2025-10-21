@@ -8,16 +8,22 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { BodyText, Heading, Title } from "../components/common/Texts";
+import {
+  BodyText,
+  Heading,
+  Subheading,
+  Title,
+} from "../components/common/Texts";
 import "../utils/string.extensions";
 import { GameService } from "../api/services/gameService";
 import { useTheme } from "../contexts/ThemeContext";
 import ButtonGroup from "../components/common/ButtonGroup";
+import { IconButton, TextButton } from "../components/common/Buttons";
 
 const { width } = Dimensions.get("window");
 const IMAGE_WIDTH = width;
 const IMAGE_HEIGHT = (IMAGE_WIDTH * 2) / 3;
-const ROW_LABEL_FLEX_WIDTH = 0.2;
+const ROW_LABEL_FLEX_WIDTH = 0.25;
 const ROW_VALUE_FLEX_WIDTH = 1 - ROW_LABEL_FLEX_WIDTH;
 
 const relationOptions = [
@@ -25,10 +31,10 @@ const relationOptions = [
   "Plan To Play",
   "Completed",
   "On Hold",
-  "Drop",
+  "Dropped",
 ];
 
-export default function GameDetails({ route }) {
+export default function Details({ route }) {
   const { gameId } = route.params;
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme.colors);
@@ -61,7 +67,7 @@ export default function GameDetails({ route }) {
       ) : (
         <ScrollView>
           <Cover />
-          <View style={{ marginHorizontal: 15, marginTop: 15 }}>
+          <View style={{ margin: 15 }}>
             <TitleDescription />
             <Details />
             <Relation />
@@ -90,7 +96,35 @@ export default function GameDetails({ route }) {
   function TitleDescription() {
     return (
       <>
-        <Title>{game.title}</Title>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Title style={{ flex: 0.8 }}>{game.title}</Title>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "flex-start",
+              padding: 5,
+              columnGap: 5,
+            }}
+          >
+            <Subheading>
+              {game.rating
+                ? `${(10.0 * (game.rating / 100.0)).toFixed(2)}`
+                : "--.--"}
+            </Subheading>
+            <IconButton
+              iconName="star-o"
+              color={theme.colors.primary}
+              size={30}
+            />
+          </View>
+        </View>
+
         {game.description && (
           <>
             <Heading style={styles.heading}>Description</Heading>
@@ -152,5 +186,10 @@ export default function GameDetails({ route }) {
 }
 
 const makeStylesSheet = (theme) => {
-  return StyleSheet.create({ heading: { paddingTop: 15, paddingBottom: 0 } });
+  return StyleSheet.create({
+    heading: {
+      paddingTop: 15,
+      paddingBottom: 0,
+    },
+  });
 };

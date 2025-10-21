@@ -12,6 +12,7 @@ export default function SettingsStack({ navigation }) {
         headerRight: () => {
           return (
             <IconButton
+              style={{ margin: 15 }}
               onPress={() => {
                 navigation.toggleDrawer();
               }}

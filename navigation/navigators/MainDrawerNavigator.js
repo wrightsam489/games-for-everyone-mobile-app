@@ -28,7 +28,7 @@ export default function MainDrawerNavigator() {
             </DrawerContentScrollView>
             <View style={{ flex: 1 }} />
             <DestructiveButton
-              style={{ marginHorizontal: 15, marginBottom: 30 }}
+              style={{ marginHorizontal: 15, marginBottom: 15 }}
               title={"Logout"}
               onPress={() => {}}
             />
