@@ -12,6 +12,20 @@ export const gfeClient = {
     return gfeClientInstance.get("/game/details", { params: { game_id } });
   },
 
+  // Get Bys
+
+  getGamesByCompany: async (company_id) => {
+    return gfeClientInstance.get("/games/company", {
+      params: { id: company_id },
+    });
+  },
+
+  getGamesByFranchise: async (franchise_id) => {
+    return gfeClientInstance.get("/games/franchise", {
+      params: { id: franchise_id },
+    });
+  },
+
   getGamesByGenre: async (genre_id) => {
     return gfeClientInstance.get("/games/genre", { params: { id: genre_id } });
   },
@@ -20,19 +34,21 @@ export const gfeClient = {
     return gfeClientInstance.get("/games/theme", { params: { id: theme_id } });
   },
 
+  // Get Alls
+
+  getAllCompanies: async () => {
+    return gfeClientInstance.get("/companies/all");
+  },
+
+  getAllFranchises: async () => {
+    return gfeClientInstance.get("/franchises/all");
+  },
+
   getAllGenres: async () => {
     return gfeClientInstance.get("/genres/all");
   },
 
-  getGenre: async (genre_id) => {
-    return gfeClientInstance.get("/genre", { params: { genre_id } });
-  },
-
   getAllThemes: async () => {
     return gfeClientInstance.get("/themes/all");
-  },
-
-  getTheme: async (theme_id) => {
-    return gfeClientInstance.get("/theme", { params: { theme_id } });
   },
 };

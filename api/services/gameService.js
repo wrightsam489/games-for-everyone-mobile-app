@@ -10,6 +10,24 @@ export const GameService = {
       throw error;
     }
   },
+  getGamesByCompany: async (company_id) => {
+    try {
+      const response = await gfeClient.getGamesByCompany(company_id);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching games by franchise:", error);
+      throw error;
+    }
+  },
+  getGamesByFranchise: async (franchise_id) => {
+    try {
+      const response = await gfeClient.getGamesByFranchise(franchise_id);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching games by franchise:", error);
+      throw error;
+    }
+  },
   getGamesByGenre: async (genre_id) => {
     try {
       const response = await gfeClient.getGamesByGenre(genre_id);

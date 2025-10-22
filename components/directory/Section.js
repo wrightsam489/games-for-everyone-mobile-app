@@ -14,11 +14,44 @@ import { Heading } from "../common/Texts";
 import GameCard from "../directory/GameCard";
 
 const { width } = Dimensions.get("window");
-const CONTAINER_WIDTH = width * 0.5;
+const CONTAINER_WIDTH = width * 0.45;
 const CONTAINER_SPACING = (width - CONTAINER_WIDTH) / 2;
-const ACTIVITY_HEIGHT = CONTAINER_WIDTH * 1.2;
+const ACTIVITY_HEIGHT = CONTAINER_WIDTH * 1.8;
 
-export default function Section({ section }) {
+export function CompanySection({ section }) {
+  return (
+    <Section
+      section={section}
+      getGames={() => GameService.getGamesByCompany(section.id)}
+    />
+  );
+}
+export function FranchiseSection({ section }) {
+  return (
+    <Section
+      section={section}
+      getGames={() => GameService.getGamesByFranchise(section.id)}
+    />
+  );
+}
+export function GenreSection({ section }) {
+  return (
+    <Section
+      section={section}
+      getGames={() => GameService.getGamesByGenre(section.id)}
+    />
+  );
+}
+export function ThemesSection({ section }) {
+  return (
+    <Section
+      section={section}
+      getGames={() => GameService.getGamesByTheme(section.id)}
+    />
+  );
+}
+
+function Section({ section, getGames }) {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme.colors);
 
@@ -32,7 +65,7 @@ export default function Section({ section }) {
   const fetchGames = async () => {
     try {
       setLoading(true);
-      const data = await GameService.getGamesByTheme(section.id);
+      const data = await getGames();
       setGames(data);
     } catch (error) {
       console.error(error);

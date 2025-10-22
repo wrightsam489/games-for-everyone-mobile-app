@@ -9,7 +9,14 @@ const IconLocation = Object.freeze({
   trailing: "trailing",
 });
 
-const Button = ({ title, style, textStyle, onPress, disabled = false }) => {
+const Button = ({
+  title,
+  style,
+  textStyle,
+  onPress,
+  disabled = false,
+  children = null,
+}) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
@@ -20,6 +27,7 @@ const Button = ({ title, style, textStyle, onPress, disabled = false }) => {
       disabled={disabled}
     >
       <Text style={[styles.text, textStyle]}>{title}</Text>
+      {children}
     </Pressable>
   );
 };
@@ -119,7 +127,7 @@ export const IconButton = ({
 };
 
 export const ToggleButton = ({
-  title = "Toggle",
+  title = null,
   style,
   onPress,
   isActive = false,
@@ -144,7 +152,9 @@ export const ToggleButton = ({
       ]}
       onPress={onPress}
       disabled={disabled}
-    />
+    >
+      {children}
+    </Button>
   );
 };
 
@@ -165,7 +175,7 @@ const makeStylesSheet = (theme) => {
       backgroundColor: theme.colors.primary,
     },
     secondary: {
-      borderColor: theme.colors.secondary,
+      borderColor: theme.colors.primary,
     },
     destructive: {
       backgroundColor: theme.colors.destructive,

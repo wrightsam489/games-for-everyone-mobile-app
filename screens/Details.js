@@ -18,7 +18,7 @@ import "../utils/string.extensions";
 import { GameService } from "../api/services/gameService";
 import { useTheme } from "../contexts/ThemeContext";
 import ButtonGroup from "../components/common/ButtonGroup";
-import { IconButton, TextButton } from "../components/common/Buttons";
+import { IconButton } from "../components/common/Buttons";
 
 const { width } = Dimensions.get("window");
 const IMAGE_WIDTH = width;
@@ -94,6 +94,8 @@ export default function Details({ route }) {
   }
 
   function TitleDescription() {
+    const [reviewed, setReviewed] = useState(false);
+
     return (
       <>
         <View
@@ -103,7 +105,7 @@ export default function Details({ route }) {
             justifyContent: "space-between",
           }}
         >
-          <Title style={{ flex: 0.8 }}>{game.title}</Title>
+          <Title style={{ flex: 1 }}>{game.title}</Title>
           <View
             style={{
               flexDirection: "row",
@@ -118,7 +120,8 @@ export default function Details({ route }) {
                 : "--.--"}
             </Subheading>
             <IconButton
-              iconName="star-o"
+              onPress={() => setReviewed(!reviewed)}
+              iconName={reviewed ? "star" : "star-o"}
               color={theme.colors.primary}
               size={30}
             />

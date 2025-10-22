@@ -6,13 +6,21 @@ import {
   ActivityIndicator,
 } from "react-native";
 
+import { CompanyService } from "../api/services/companyService";
+import { FranchiseService } from "../api/services/franchiseService";
 import { GenreService } from "../api/services/genreService";
 import { ThemeService } from "../api/services/themeService";
 
 import { useTheme } from "../contexts/ThemeContext";
 import { SearchBar } from "../components/common/TextFields";
 
-import Section from "../components/directory/Section";
+import {
+  CompanySection,
+  FranchiseSection,
+  GenreSection,
+  ThemesSection,
+} from "../components/directory/Section";
+import { PrimaryButton } from "../components/common/Buttons";
 
 export default function Directory() {
   const { theme } = useTheme();
@@ -26,21 +34,36 @@ export default function Directory() {
   }, []);
 
   const fetchSections = async () => {
+    setSections([]);
     setLoading(true);
     const data = [
-      // fetchCompanies(),
+      fetchCompanies(),
       // fetchFranchise(),
       // fetchGenre(),
-      fetchThemes(),
+      // fetchThemes(),
     ];
     await Promise.all(data).finally(() => {
       setLoading(false);
     });
   };
 
-  const fetchCompanies = async () => {};
+  const fetchCompanies = async () => {
+    try {
+      const data = await CompanyService.getAllCompanies();
+      setSections([...sections, ...data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  const fetchFranchise = async () => {};
+  const fetchFranchise = async () => {
+    try {
+      const data = await FranchiseService.getAllFranchises();
+      setSections([...sections, ...data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fetchGenre = async () => {
     try {
@@ -61,7 +84,7 @@ export default function Directory() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, margin: 0 }}>
+    <SafeAreaView style={{ flex: 1, marginBottom: 15 }}>
       {loading ? (
         <ActivityIndicator
           size={"large"}
@@ -69,6 +92,11 @@ export default function Directory() {
         />
       ) : (
         <>
+          <PrimaryButton
+            style={{ margin: 15 }}
+            title={"Fetch"}
+            onPress={() => fetchSections()}
+          />
           <SearchBar
             style={{ margin: 15, boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)" }}
             dis
@@ -77,7 +105,7 @@ export default function Directory() {
             data={sections}
             keyExtractor={(item) => item.id + item.name}
             renderItem={({ item }) => {
-              return <Section section={item} />;
+              return <CompanySection section={item} />;
             }}
           />
         </>

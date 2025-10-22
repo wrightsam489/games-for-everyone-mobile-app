@@ -6,9 +6,9 @@ import { Subheading } from "../common/Texts";
 import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
-const CONTAINER_WIDTH = width * 0.5;
-const CARD_WIDTH = CONTAINER_WIDTH * 0.9;
-const IMAGE_HEIGHT = CARD_WIDTH;
+const CONTAINER_WIDTH = width * 0.45;
+const CARD_WIDTH = CONTAINER_WIDTH * 0.85;
+const IMAGE_HEIGHT = (CARD_WIDTH * 3) / 2;
 
 export default function GameCard({ game }) {
   const { theme } = useTheme();
