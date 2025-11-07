@@ -12,6 +12,7 @@ import { useTheme } from "../../contexts/ThemeContext";
 import { Heading } from "../common/Texts";
 
 import GameCard from "../directory/GameCard";
+import APIActionReloader from "../common/APIActionReloader";
 
 const { width } = Dimensions.get("window");
 const CONTAINER_WIDTH = width * 0.45;
@@ -57,6 +58,7 @@ function Section({ section, getGames }) {
 
   const [loading, setLoading] = useState(false);
   const [games, setGames] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchGames();
@@ -65,10 +67,12 @@ function Section({ section, getGames }) {
   const fetchGames = async () => {
     try {
       setLoading(true);
+      setError(null);
       const data = await getGames();
       setGames(data);
     } catch (error) {
       console.error(error);
+      setError(error);
     } finally {
       setLoading(false);
     }
@@ -87,19 +91,25 @@ function Section({ section, getGames }) {
           />
         </View>
       ) : (
-        <FlatList
-          data={games}
-          renderItem={({ item }) => {
-            return <GameCard game={item} />;
-          }}
-          keyExtractor={(item) => item.id + item.title}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={CONTAINER_WIDTH}
-          decelerationRate="fast"
-          snapToAlignment="start"
-          contentContainerStyle={{ paddingHorizontal: CONTAINER_SPACING }}
-        />
+        <APIActionReloader
+          style={{ height: ACTIVITY_HEIGHT }}
+          error={error}
+          callback={() => fetchGames()}
+        >
+          <FlatList
+            data={games}
+            renderItem={({ item }) => {
+              return <GameCard game={item} />;
+            }}
+            keyExtractor={(item) => item.id + item.title}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={CONTAINER_WIDTH}
+            decelerationRate="fast"
+            snapToAlignment="start"
+            contentContainerStyle={{ paddingHorizontal: CONTAINER_SPACING }}
+          />
+        </APIActionReloader>
       )}
     </>
   );

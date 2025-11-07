@@ -37,9 +37,9 @@ export default function Directory() {
     setSections([]);
     setLoading(true);
     const data = [
-      fetchCompanies(),
+      // fetchCompanies(),
       // fetchFranchise(),
-      // fetchGenre(),
+      fetchGenre(),
       // fetchThemes(),
     ];
     await Promise.all(data).finally(() => {
@@ -92,11 +92,6 @@ export default function Directory() {
         />
       ) : (
         <>
-          <PrimaryButton
-            style={{ margin: 15 }}
-            title={"Fetch"}
-            onPress={() => fetchSections()}
-          />
           <SearchBar
             style={{ margin: 15, boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)" }}
             dis
@@ -105,7 +100,10 @@ export default function Directory() {
             data={sections}
             keyExtractor={(item) => item.id + item.name}
             renderItem={({ item }) => {
-              return <CompanySection section={item} />;
+              // return <CompanySection section={item} />;
+              // return <FranchiseSection section={item} />;
+              return <GenreSection section={item} />;
+              // return <ThemesSection section={item} />;
             }}
           />
         </>

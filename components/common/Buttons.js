@@ -1,13 +1,8 @@
-import React, { act, useState } from "react";
+import React, { useState } from "react";
 import { useTheme } from "../../contexts/ThemeContext";
 import { StyleSheet, Text, Pressable } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 
-const IconLocation = Object.freeze({
-  none: "none",
-  leading: "leading",
-  trailing: "trailing",
-});
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Button = ({
   title,

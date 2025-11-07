@@ -19,6 +19,7 @@ import { GameService } from "../api/services/gameService";
 import { useTheme } from "../contexts/ThemeContext";
 import ButtonGroup from "../components/common/ButtonGroup";
 import { IconButton } from "../components/common/Buttons";
+import APIActionReloader from "../components/common/APIActionReloader";
 
 const { width } = Dimensions.get("window");
 const IMAGE_WIDTH = width;
@@ -41,19 +42,23 @@ export default function Details({ route }) {
 
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchGame().finally(() => {
-      setLoading(false);
-    });
+    fetchGame();
   }, []);
 
   const fetchGame = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const data = await GameService.getGameDetails(gameId);
       setGame(data);
     } catch (error) {
+      setError(error);
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,14 +70,20 @@ export default function Details({ route }) {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         />
       ) : (
-        <ScrollView>
-          <Cover />
-          <View style={{ margin: 15 }}>
-            <TitleDescription />
-            <Details />
-            <Relation />
-          </View>
-        </ScrollView>
+        <APIActionReloader
+          style={{ flex: 1 }}
+          error={error}
+          callback={() => fetchGame()}
+        >
+          <ScrollView>
+            <Cover />
+            <View style={{ margin: 15 }}>
+              <TitleDescription />
+              <Details />
+              <Relation />
+            </View>
+          </ScrollView>
+        </APIActionReloader>
       )}
     </>
   );
@@ -111,7 +122,7 @@ export default function Details({ route }) {
               flexDirection: "row",
               alignItems: "flex-start",
               padding: 5,
-              columnGap: 5,
+              columnGap: 15,
             }}
           >
             <Subheading>
