@@ -27,6 +27,7 @@ export default function ButtonGroup({ items = [], isSingleSelection = true }) {
       {items.map((item, index) => {
         return (
           <ToggleButton
+            key={index}
             title={`${item}`}
             style={styles.button}
             isActive={activeIndexes.includes(index)}

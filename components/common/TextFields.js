@@ -37,7 +37,7 @@ export function SearchBar({
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
       />
-      <IconButton />
+      <IconButton style={{ margin: 5 }} />
     </View>
   );
 }

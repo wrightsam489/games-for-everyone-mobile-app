@@ -37,12 +37,11 @@ const makeStylesSheet = (theme) => {
   return StyleSheet.create({
     container: {
       backgroundColor: theme.overlay,
-      margin: 15,
-      padding: 15,
+      marginHorizontal: 15,
       borderRadius: 10,
       alignItems: "center",
       justifyContent: "center",
-      rowGap: 20,
+      rowGap: 10,
     },
   });
 };

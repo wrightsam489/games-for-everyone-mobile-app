@@ -20,7 +20,13 @@ import {
   GenreSection,
   ThemesSection,
 } from "../components/directory/Section";
-import { PrimaryButton } from "../components/common/Buttons";
+
+const SectionType = Object.freeze({
+  Company: "Company",
+  Franchise: "Franchise",
+  Genre: "Genre",
+  Theme: "Theme",
+});
 
 export default function Directory() {
   const { theme } = useTheme();
@@ -37,10 +43,10 @@ export default function Directory() {
     setSections([]);
     setLoading(true);
     const data = [
-      // fetchCompanies(),
-      // fetchFranchise(),
+      fetchCompanies(),
+      fetchFranchise(),
       fetchGenre(),
-      // fetchThemes(),
+      fetchThemes(),
     ];
     await Promise.all(data).finally(() => {
       setLoading(false);
@@ -49,8 +55,11 @@ export default function Directory() {
 
   const fetchCompanies = async () => {
     try {
-      const data = await CompanyService.getAllCompanies();
-      setSections([...sections, ...data]);
+      let data = await CompanyService.getAllCompanies();
+      data = data.map((item) => {
+        return { ...item, type: SectionType.Company };
+      });
+      setSections((prev) => [...prev, ...data]);
     } catch (error) {
       console.error(error);
     }
@@ -58,8 +67,11 @@ export default function Directory() {
 
   const fetchFranchise = async () => {
     try {
-      const data = await FranchiseService.getAllFranchises();
-      setSections([...sections, ...data]);
+      let data = await FranchiseService.getAllFranchises();
+      data = data.map((item) => {
+        return { ...item, type: SectionType.Franchise };
+      });
+      setSections((prev) => [...prev, ...data]);
     } catch (error) {
       console.error(error);
     }
@@ -67,8 +79,11 @@ export default function Directory() {
 
   const fetchGenre = async () => {
     try {
-      const data = await GenreService.getAllGenres();
-      setSections([...sections, ...data]);
+      let data = await GenreService.getAllGenres();
+      data = data.map((item) => {
+        return { ...item, type: SectionType.Genre };
+      });
+      setSections((prev) => [...prev, ...data]);
     } catch (error) {
       console.error(error);
     }
@@ -76,8 +91,11 @@ export default function Directory() {
 
   const fetchThemes = async () => {
     try {
-      const data = await ThemeService.getAllThemes();
-      setSections([...sections, ...data]);
+      let data = await ThemeService.getAllThemes();
+      data = data.map((item) => {
+        return { ...item, type: SectionType.Theme };
+      });
+      setSections((prev) => [...prev, ...data]);
     } catch (error) {
       console.error(error);
     }
@@ -98,12 +116,20 @@ export default function Directory() {
           />
           <FlatList
             data={sections}
-            keyExtractor={(item) => item.id + item.name}
+            keyExtractor={(item) => item.type + item.id + item.name}
             renderItem={({ item }) => {
-              // return <CompanySection section={item} />;
-              // return <FranchiseSection section={item} />;
-              return <GenreSection section={item} />;
-              // return <ThemesSection section={item} />;
+              switch (item.type) {
+                case SectionType.Company:
+                  return <CompanySection section={item} />;
+                case SectionType.Franchise:
+                  return <FranchiseSection section={item} />;
+                case SectionType.Genre:
+                  return <GenreSection section={item} />;
+                case SectionType.Theme:
+                  return <ThemesSection section={item} />;
+                default:
+                  <></>;
+              }
             }}
           />
         </>

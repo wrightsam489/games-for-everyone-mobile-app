@@ -15,9 +15,14 @@ import GameCard from "../directory/GameCard";
 import APIActionReloader from "../common/APIActionReloader";
 
 const { width } = Dimensions.get("window");
-const CONTAINER_WIDTH = width * 0.45;
-const CONTAINER_SPACING = (width - CONTAINER_WIDTH) / 2;
-const ACTIVITY_HEIGHT = CONTAINER_WIDTH * 1.8;
+
+const CONTAINER_WIDTH = width * 0.5;
+const CONTAINER_SPACING = (width - CONTAINER_WIDTH) * 0.5;
+
+const ACTIVITY_HEIGHT = CONTAINER_WIDTH * 1.5;
+
+const CARD_WIDTH = CONTAINER_WIDTH;
+const CARD_HEIGHT = CARD_WIDTH * 1.5;
 
 export function CompanySection({ section }) {
   return (
@@ -82,9 +87,7 @@ function Section({ section, getGames }) {
     <>
       <Heading style={{ marginHorizontal: 15 }}>{section.name}</Heading>
       {loading ? (
-        <View
-          style={{ flex: 1, flexDirection: "row", height: ACTIVITY_HEIGHT }}
-        >
+        <View style={styles.reloader}>
           <ActivityIndicator
             size={"large"}
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -92,14 +95,16 @@ function Section({ section, getGames }) {
         </View>
       ) : (
         <APIActionReloader
-          style={{ height: ACTIVITY_HEIGHT }}
+          style={styles.reloader}
           error={error}
           callback={() => fetchGames()}
         >
           <FlatList
             data={games}
             renderItem={({ item }) => {
-              return <GameCard game={item} />;
+              return (
+                <GameCard width={CARD_WIDTH} height={CARD_HEIGHT} game={item} />
+              );
             }}
             keyExtractor={(item) => item.id + item.title}
             horizontal={true}
@@ -116,5 +121,12 @@ function Section({ section, getGames }) {
 }
 
 const makeStylesSheet = (theme) => {
-  return StyleSheet.create({});
+  return StyleSheet.create({
+    reloader: {
+      height: ACTIVITY_HEIGHT,
+      flex: 1,
+      flexDirection: "row",
+      marginBottom: 15,
+    },
+  });
 };

@@ -1,28 +1,39 @@
-import { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View, Pressable, Image } from "react-native";
+import { StyleSheet, View, Pressable, Image } from "react-native";
 
 import { useTheme } from "../../contexts/ThemeContext";
 import { Subheading } from "../common/Texts";
 import { useNavigation } from "@react-navigation/native";
 
-const { width } = Dimensions.get("window");
-const CONTAINER_WIDTH = width * 0.45;
-const CARD_WIDTH = CONTAINER_WIDTH * 0.85;
-const IMAGE_HEIGHT = (CARD_WIDTH * 3) / 2;
-
-export default function GameCard({ game }) {
+export default function GameCard({ width, height, game }) {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme.colors);
   const navigation = useNavigation();
 
+  const CONTAINER_WIDTH = width;
+  const CONTAINER_HEIGHT = height;
+  const IMAGE_WIDTH = CONTAINER_WIDTH * 0.85;
+  const IMAGE_HEIGHT = IMAGE_WIDTH * 1.5;
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        { width: CONTAINER_WIDTH, height: CONTAINER_HEIGHT },
+        styles.container,
+      ]}
+    >
       <Pressable
         onPress={() => navigation.navigate("Game Details", { gameId: game.id })}
-        style={({ pressed }) => [styles.card, pressed && { opacity: 0.5 }]}
+        style={({ pressed }) => [
+          { width: IMAGE_WIDTH },
+          styles.card,
+          pressed && { opacity: 0.5 },
+        ]}
       >
-        <Image style={styles.image} source={{ uri: game.cover }} />
-        <Subheading style={{ padding: 5, width: CARD_WIDTH }} numberOfLines={1}>
+        <Image
+          style={[{ width: IMAGE_WIDTH, height: IMAGE_HEIGHT }, styles.image]}
+          source={{ uri: game.cover }}
+        />
+        <Subheading style={{ padding: 5 }} numberOfLines={1}>
           {game.title}
         </Subheading>
       </Pressable>
@@ -33,8 +44,8 @@ export default function GameCard({ game }) {
 const makeStylesSheet = (theme) => {
   return StyleSheet.create({
     container: {
-      width: CONTAINER_WIDTH,
       alignItems: "center",
+      marginBottom: 15,
     },
     card: {
       backgroundColor: theme.card,
@@ -43,8 +54,6 @@ const makeStylesSheet = (theme) => {
       marginVertical: 15,
     },
     image: {
-      width: CARD_WIDTH,
-      height: IMAGE_HEIGHT,
       borderTopLeftRadius: 5,
       borderTopRightRadius: 5,
     },
