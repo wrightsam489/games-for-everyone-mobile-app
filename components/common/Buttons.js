@@ -122,7 +122,7 @@ export const IconButton = ({
 };
 
 export const ToggleButton = ({
-  title = null,
+  title = "Toggle",
   style,
   onPress,
   isActive = false,
@@ -141,8 +141,8 @@ export const ToggleButton = ({
             ? styles.disabled
             : styles.disabledOutline
           : isActive
-          ? styles.primary
-          : styles.secondary,
+          ? styles.toggleActive
+          : styles.toggleInactive,
         style,
       ]}
       onPress={onPress}
@@ -174,6 +174,12 @@ const makeStylesSheet = (theme) => {
     },
     destructive: {
       backgroundColor: theme.colors.destructive,
+    },
+    toggleActive: {
+      backgroundColor: theme.colors.secondary,
+    },
+    toggleInactive: {
+      borderColor: theme.colors.secondary,
     },
     underline: {
       color: theme.colors.url,

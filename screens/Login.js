@@ -2,21 +2,20 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { useTheme } from "../contexts/ThemeContext";
-import { PrimaryButton, TextButton } from "../components/Buttons";
-import { TextField, SecureTextField } from "../components/TextFields";
+import { PrimaryButton, TextButton } from "../components/common/Buttons";
+import { TextField, SecureTextField } from "../components/common/TextFields";
+import { Title } from "../components/common/Texts";
 
-import { Title } from "../components/Texts";
-
-export default function LoginScreen({ navigation }) {
+export default function Login({ navigation }) {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme.colors);
 
   return (
     <View style={styles.container}>
-      <View style={styles.vSection}>
+      <View style={styles.card}>
         <Title style={styles.title}>Gaming for Everyone</Title>
-        <TextField placeholder={"Username"} />
-        <SecureTextField placeholder={"Password"} />
+        <TextField style={styles.textField} placeholder={"Username"} />
+        <SecureTextField style={styles.textField} placeholder={"Password"} />
         <PrimaryButton title={"Login"} onPress={() => {}} />
 
         <View style={styles.hSection}>
@@ -37,17 +36,26 @@ const makeStylesSheet = (theme) => {
       flex: 1,
       rowGap: 30,
       justifyContent: "center",
-      marginHorizontal: 15,
     },
-    vSection: {
+    card: {
+      backgroundColor: theme.card,
+      padding: 15,
+      borderRadius: 5,
       rowGap: 15,
+      marginHorizontal: 30,
+      boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)",
     },
     hSection: {
       flexDirection: "row",
       justifyContent: "space-evenly",
     },
+    textField: {
+      borderColor: "black",
+      borderWidth: 0.25,
+    },
     title: {
       textAlign: "center",
+      marginBottom: 15,
     },
   });
 };

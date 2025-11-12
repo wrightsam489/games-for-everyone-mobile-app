@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useTheme } from "../../contexts/ThemeContext";
 
 import MainDrawerNavigator from "./MainDrawerNavigator";
+import AccountNavigator from "./AccountNavigator";
 
 export default function RootNavigator() {
   const { theme } = useTheme();

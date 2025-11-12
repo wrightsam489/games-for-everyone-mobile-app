@@ -8,7 +8,7 @@ const lightTheme = {
   dark: false,
   colors: {
     primary: "#00A74F",
-    secondary: "#0072CE",
+    secondary: "#0081ebff",
     destructive: "#D32F2F",
     background: "#F0F0F0",
     navigation: "#FFFFFF",

@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 
 import { StyleSheet, SafeAreaView, View } from "react-native";
-import { TextField } from "../components/TextFields";
-import { Title, Heading } from "../components/Texts";
-import { PrimaryButton } from "../components/Buttons";
+import { TextField } from "../components/common/TextFields";
+import { Title, Heading } from "../components/common/Texts";
+import { PrimaryButton } from "../components/common/Buttons";
 
 export default function CreateAccount() {
   const { theme } = useTheme();

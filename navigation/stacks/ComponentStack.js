@@ -1,10 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { IconButton } from "../../components/common/Buttons";
-import Settings from "../../screens/Settings";
+import Components from "../../screens/Components";
+import { CarouselExample } from "../../components/common/Carousel";
 
 const Stack = createStackNavigator();
 
-export default function SettingsStack({ navigation }) {
+export default function ComponentStack({ navigation }) {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -17,13 +18,14 @@ export default function SettingsStack({ navigation }) {
                 navigation.toggleDrawer();
               }}
               iconName="navicon"
-              size={25}
+              size={30}
             />
           );
         },
       }}
     >
-      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Components" component={Components} />
+      <Stack.Screen name="Carousel" component={CarouselExample} />
     </Stack.Navigator>
   );
 }

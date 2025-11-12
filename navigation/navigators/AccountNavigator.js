@@ -1,12 +1,15 @@
-import LoginScreen from "../../screens/LoginScreen";
+import { createStackNavigator } from "@react-navigation/stack";
+import Login from "../../screens/Login";
 import CreateAccount from "../../screens/CreateAccount";
 
-function AccountNavigator() {
+const Stack = createStackNavigator();
+
+export default function AccountNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerTitleAlign: "center" }}>
       <Stack.Screen
         name="Login"
-        component={LoginScreen}
+        component={Login}
         options={{ headerShown: false }}
       />
       <Stack.Screen

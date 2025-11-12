@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { ScrollView, Switch, View, Text, useColorScheme } from "react-native";
+import {
+  Dimensions,
+  ScrollView,
+  Switch,
+  View,
+  Text,
+  useColorScheme,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { useTheme } from "../contexts/ThemeContext";
 
@@ -23,6 +31,11 @@ import {
   BodyText,
 } from "../components/common/Texts";
 import ButtonGroup from "../components/common/ButtonGroup";
+import Card from "../components/common/Card";
+import Carousel, { CarouselExample } from "../components/common/Carousel";
+
+const { width } = Dimensions.get("window");
+const CONTAINER_WIDTH = width * 0.5;
 
 const relationOptions = [
   "Playing",
@@ -33,24 +46,18 @@ const relationOptions = [
 ];
 
 export default function Components() {
-  const { mode, setMode } = useTheme();
-  const toggleSwitch = () => {
-    setMode(!(mode === "dark") ? "dark" : "light");
-  };
-
+  const navigation = useNavigation();
   return (
     <ScrollView>
-      <View style={{ marginHorizontal: 15, rowGap: 10, marginBottom: 15 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            alignItems: "center",
+      <View style={{ margin: 15, rowGap: 10, flex: 1 }}>
+        <PrimaryButton
+          title={"See Carousel"}
+          onPress={() => {
+            navigation.navigate("Carousel");
           }}
-        >
-          <BodyText>Dark mode</BodyText>
-          <Switch value={mode === "dark"} onValueChange={toggleSwitch} />
-        </View>
+        />
+        <Card style={{ height: 200 }}></Card>
+
         <View>
           <Title>Title</Title>
           <Heading>Heading</Heading>
