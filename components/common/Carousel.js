@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Dimensions, StyleSheet, View, FlatList } from "react-native";
 import { useTheme } from "../../contexts/ThemeContext";
 import Icon from "react-native-vector-icons/Entypo";
-import { PrimaryButton, ToggleButton } from "./Buttons";
+import { PrimaryButton } from "./Buttons";
 
 const { width } = Dimensions.get("window");
 
@@ -108,7 +108,6 @@ export default function Carousel({
             disabled={focusedItem.id == listData[0].id}
             onPress={() => {
               const index = focusedIndex - 1;
-              console.log(`${focusedIndex} -> ${index}`);
               scrollToItem(index);
             }}
           />
@@ -118,7 +117,6 @@ export default function Carousel({
             disabled={focusedItem.id == listData[listData.length - 1].id}
             onPress={() => {
               const index = focusedIndex + 1;
-              console.log(`${focusedIndex} -> ${index}`);
               scrollToItem(index);
             }}
           />
@@ -145,58 +143,6 @@ export default function Carousel({
     </>
   );
 }
-
-import Card from "./Card";
-export const CarouselExample = () => {
-  const [showItemIndicator, setShowItemIndicator] = useState(true);
-  const [useButtonMovement, setUseButtonMovement] = useState(true);
-
-  return (
-    <View style={{ flex: 1, marginBottom: 25 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 25,
-          marginHorizontal: 30,
-          columnGap: 30,
-        }}
-      >
-        <ToggleButton
-          style={{ flex: 1 }}
-          title={"showItemIndicator"}
-          onPress={() => {
-            setShowItemIndicator((prev) => !prev);
-          }}
-          isActive={showItemIndicator}
-        />
-        <ToggleButton
-          style={{ flex: 1 }}
-          title={"useButtonMovement"}
-          onPress={() => {
-            setUseButtonMovement((prev) => !prev);
-          }}
-          isActive={useButtonMovement}
-        />
-      </View>
-      <Carousel
-        data={Array.from({ length: 5 }, (_, i) => ({ id: i.toString() }))}
-        renderItem={({ item }) => {
-          return (
-            <Card
-              style={{
-                flex: 1,
-                width: "87.5%",
-                margin: 30,
-              }}
-            ></Card>
-          );
-        }}
-        showItemIndicator={showItemIndicator}
-        useButtonMovement={useButtonMovement}
-      />
-    </View>
-  );
-};
 
 const makeStylesSheet = (theme) => {
   return StyleSheet.create({});

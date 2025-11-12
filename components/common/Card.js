@@ -8,11 +8,15 @@ export default function Card({ style, children }) {
 }
 
 const makeStylesSheet = (theme) => {
+  const { mode } = useTheme();
   return StyleSheet.create({
     card: {
       backgroundColor: theme.card,
       borderRadius: 5,
-      boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)",
+      boxShadow:
+        mode === "dark"
+          ? '"0px 0px 0px rgba(0, 0, 0, 0)"'
+          : "0px 0px 8px rgba(0, 0, 0, 0.25)",
     },
   });
 };

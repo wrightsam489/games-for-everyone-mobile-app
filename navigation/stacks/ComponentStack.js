@@ -1,7 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { IconButton } from "../../components/common/Buttons";
 import Components from "../../screens/Components";
-import { CarouselExample } from "../../components/common/Carousel";
 
 const Stack = createStackNavigator();
 
@@ -25,7 +24,6 @@ export default function ComponentStack({ navigation }) {
       }}
     >
       <Stack.Screen name="Components" component={Components} />
-      <Stack.Screen name="Carousel" component={CarouselExample} />
     </Stack.Navigator>
   );
 }
