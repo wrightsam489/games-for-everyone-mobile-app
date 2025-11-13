@@ -25,8 +25,7 @@ export default function Carousel({
   const flatListRef = useRef(null);
 
   const CONTAINER_WIDTH = width * containerWidthPercentage;
-  const CONTAINER_SPACING =
-    (width - CONTAINER_WIDTH) * containerWidthPercentage;
+  const CONTAINER_SPACING = (width - CONTAINER_WIDTH) * 0.5;
 
   const onViewableItemsChanged = useRef(({ viewableItems }) => {
     if (viewableItems.length > 0) {
@@ -76,7 +75,7 @@ export default function Carousel({
   };
 
   return (
-    <>
+    <View style={{ flex: 1, alignItems: "center" }}>
       <FlatList
         ref={flatListRef}
         style={style}
@@ -97,8 +96,8 @@ export default function Carousel({
       {useButtonMovement && (
         <View
           style={{
+            paddingHorizontal: 30,
             flexDirection: "row",
-            marginHorizontal: 30,
             columnGap: 30,
           }}
         >
@@ -123,7 +122,12 @@ export default function Carousel({
         </View>
       )}
       {showItemIndicator && (
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
           {listData.map((element) => {
             let color = mode === "dark" ? "black" : "grey";
             if (element.id === focusedItem.id) {
@@ -140,7 +144,7 @@ export default function Carousel({
           })}
         </View>
       )}
-    </>
+    </View>
   );
 }
 

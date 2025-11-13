@@ -12,7 +12,7 @@ import { useTheme } from "../../contexts/ThemeContext";
 import { Heading } from "../common/Texts";
 
 import GameCard from "../directory/GameCard";
-import APIActionReloader from "../common/APIActionReloader";
+import ActionReloader from "../common/ActionReloader";
 
 const { width } = Dimensions.get("window");
 
@@ -86,16 +86,10 @@ function Section({ section, getGames }) {
   return (
     <>
       <Heading style={{ marginHorizontal: 15 }}>{section.name}</Heading>
-      {loading ? (
-        <View style={styles.reloader}>
-          <ActivityIndicator
-            size={"large"}
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          />
-        </View>
-      ) : (
-        <APIActionReloader
+      <View style={{ height: ACTIVITY_HEIGHT, marginTop: 5 }}>
+        <ActionReloader
           style={styles.reloader}
+          loading={loading}
           error={error}
           callback={() => fetchGames()}
         >
@@ -114,8 +108,8 @@ function Section({ section, getGames }) {
             snapToAlignment="start"
             contentContainerStyle={{ paddingHorizontal: CONTAINER_SPACING }}
           />
-        </APIActionReloader>
-      )}
+        </ActionReloader>
+      </View>
     </>
   );
 }
@@ -126,7 +120,7 @@ const makeStylesSheet = (theme) => {
       height: ACTIVITY_HEIGHT,
       flex: 1,
       flexDirection: "row",
-      marginBottom: 15,
+      marginBottom: 5,
     },
   });
 };

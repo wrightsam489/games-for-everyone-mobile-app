@@ -29,7 +29,7 @@ const SectionType = Object.freeze({
 });
 
 export default function Directory() {
-  const { theme } = useTheme();
+  const { theme, mode } = useTheme();
   const styles = makeStylesSheet(theme.colors);
 
   const [loading, setLoading] = useState(false);
@@ -111,7 +111,13 @@ export default function Directory() {
       ) : (
         <>
           <SearchBar
-            style={{ margin: 15, boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)" }}
+            style={{
+              margin: 15,
+              boxShadow:
+                mode === "dark"
+                  ? '"0px 0px 0px rgba(0, 0, 0, 0)"'
+                  : "0px 0px 8px rgba(0, 0, 0, 0.25)",
+            }}
             dis
           />
           <FlatList

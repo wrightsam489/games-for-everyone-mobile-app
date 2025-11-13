@@ -8,7 +8,7 @@ export const TextField = ({ style, placeholder, secureTextEntry = false }) => {
 
   return (
     <TextInput
-      style={[style, styles.input]}
+      style={[styles.input, style]}
       placeholderTextColor={theme.colors.text}
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
@@ -31,9 +31,9 @@ export function SearchBar({
   const styles = makeStylesSheet(theme);
 
   return (
-    <View style={[style, styles.searchBar]}>
+    <View style={[styles.searchBar, style]}>
       <TextField
-        style={[{ flex: 1 }]}
+        style={[{ flex: 1, borderWidth: 0 }]}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
       />
@@ -49,11 +49,15 @@ const makeStylesSheet = (theme) => {
       paddingHorizontal: 10,
       backgroundColor: theme.colors.textField,
       color: theme.colors.text,
+      borderColor: theme.colors.text,
+      borderWidth: StyleSheet.hairlineWidth,
     },
     searchBar: {
       flexDirection: "row",
       borderRadius: 5,
       backgroundColor: theme.colors.textField,
+      borderColor: theme.colors.text,
+      borderWidth: StyleSheet.hairlineWidth,
     },
   });
 };

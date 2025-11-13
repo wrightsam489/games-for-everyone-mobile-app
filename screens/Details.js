@@ -19,7 +19,7 @@ import { GameService } from "../api/services/gameService";
 import { useTheme } from "../contexts/ThemeContext";
 import ButtonGroup from "../components/common/ButtonGroup";
 import { IconButton } from "../components/common/Buttons";
-import APIActionReloader from "../components/common/APIActionReloader";
+import ActionReloader from "../components/common/ActionReloader";
 
 const { width } = Dimensions.get("window");
 const IMAGE_WIDTH = width;
@@ -63,29 +63,21 @@ export default function Details({ route }) {
   };
 
   return (
-    <>
-      {loading ? (
-        <ActivityIndicator
-          size={"large"}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        />
-      ) : (
-        <APIActionReloader
-          style={{ flex: 1 }}
-          error={error}
-          callback={() => fetchGame()}
-        >
-          <ScrollView>
-            <Cover />
-            <View style={{ margin: 15 }}>
-              <TitleDescription />
-              <Details />
-              <Relation />
-            </View>
-          </ScrollView>
-        </APIActionReloader>
-      )}
-    </>
+    <ActionReloader
+      style={{ flex: 1 }}
+      loading={loading}
+      error={error}
+      callback={() => fetchGame()}
+    >
+      <ScrollView>
+        <Cover />
+        <View style={{ margin: 15 }}>
+          <TitleDescription />
+          <Details />
+          <Relation />
+        </View>
+      </ScrollView>
+    </ActionReloader>
   );
 
   function Cover() {
@@ -203,7 +195,7 @@ const makeStylesSheet = (theme) => {
   return StyleSheet.create({
     heading: {
       paddingTop: 15,
-      paddingBottom: 0,
+      paddingBottom: 5,
     },
   });
 };

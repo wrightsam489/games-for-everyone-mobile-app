@@ -3,6 +3,8 @@ import { StyleSheet, View, Pressable, Image } from "react-native";
 import { useTheme } from "../../contexts/ThemeContext";
 import { Subheading } from "../common/Texts";
 import { useNavigation } from "@react-navigation/native";
+import Line from "../common/Line";
+import Card from "../common/Card";
 
 export default function GameCard({ width, height, game }) {
   const { theme } = useTheme();
@@ -25,17 +27,19 @@ export default function GameCard({ width, height, game }) {
         onPress={() => navigation.navigate("Game Details", { gameId: game.id })}
         style={({ pressed }) => [
           { width: IMAGE_WIDTH },
-          styles.card,
           pressed && { opacity: 0.5 },
         ]}
       >
-        <Image
-          style={[{ width: IMAGE_WIDTH, height: IMAGE_HEIGHT }, styles.image]}
-          source={{ uri: game.cover }}
-        />
-        <Subheading style={{ padding: 5 }} numberOfLines={1}>
-          {game.title}
-        </Subheading>
+        <Card>
+          <Image
+            style={[{ width: IMAGE_WIDTH, height: IMAGE_HEIGHT }, styles.image]}
+            source={{ uri: game.cover }}
+          />
+          <Line />
+          <Subheading style={{ padding: 5 }} numberOfLines={1}>
+            {game.title}
+          </Subheading>
+        </Card>
       </Pressable>
     </View>
   );
@@ -46,12 +50,6 @@ const makeStylesSheet = (theme) => {
     container: {
       alignItems: "center",
       marginBottom: 15,
-    },
-    card: {
-      backgroundColor: theme.card,
-      borderRadius: 5,
-      boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)",
-      marginVertical: 15,
     },
     image: {
       borderTopLeftRadius: 5,

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { useTheme } from "../../contexts/ThemeContext";
 
 import { Heading } from "./Texts";
 import { IconButton } from "./Buttons";
 
-export default function APIActionReloader({
+export default function ActionReloader({
   style,
+  loading,
   error,
   callback,
   children,
@@ -17,7 +18,12 @@ export default function APIActionReloader({
 
   return (
     <>
-      {error ? (
+      {loading ? (
+        <ActivityIndicator
+          style={{ flex: 1, justifyContent: "center", alignSelf: "center" }}
+          size={"large"}
+        />
+      ) : error ? (
         <View style={[style, styles.container]}>
           <Heading>{error}</Heading>
           <IconButton

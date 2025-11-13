@@ -10,10 +10,12 @@ import { DestructiveButton } from "../../components/common/Buttons";
 import GameStack from "../stacks/GameStack";
 import SettingsStack from "../stacks/SettingsStack";
 import ComponentStack from "../stacks/ComponentStack";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Drawer = createDrawerNavigator();
 
 export default function MainDrawerNavigator() {
+  const { auth } = useAuth();
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -31,7 +33,9 @@ export default function MainDrawerNavigator() {
             <DestructiveButton
               style={{ marginHorizontal: 15, marginBottom: 30 }}
               title={"Logout"}
-              onPress={() => {}}
+              onPress={() => {
+                auth.logout();
+              }}
             />
           </View>
         );

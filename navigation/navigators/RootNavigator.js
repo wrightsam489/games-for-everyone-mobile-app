@@ -3,14 +3,15 @@ import { useTheme } from "../../contexts/ThemeContext";
 
 import MainDrawerNavigator from "./MainDrawerNavigator";
 import AccountNavigator from "./AccountNavigator";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function RootNavigator() {
+  const { auth } = useAuth();
   const { theme } = useTheme();
-  const user = 1;
 
   return (
     <NavigationContainer theme={theme}>
-      {user ? <MainDrawerNavigator /> : <AccountNavigator />}
+      {auth.isValid ? <MainDrawerNavigator /> : <AccountNavigator />}
     </NavigationContainer>
   );
 }

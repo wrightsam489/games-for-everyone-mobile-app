@@ -5,14 +5,17 @@ import { useTheme } from "../contexts/ThemeContext";
 import { PrimaryButton, TextButton } from "../components/common/Buttons";
 import { TextField, SecureTextField } from "../components/common/TextFields";
 import { Title } from "../components/common/Texts";
+import Card from "../components/common/Card";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login({ navigation }) {
+  const { auth } = useAuth();
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme.colors);
 
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
+      <Card style={styles.card}>
         <Title style={styles.title}>Gaming for Everyone</Title>
         <TextField style={styles.textField} placeholder={"Username"} />
         <SecureTextField style={styles.textField} placeholder={"Password"} />
@@ -23,9 +26,14 @@ export default function Login({ navigation }) {
             title={"Create account"}
             onPress={() => navigation.navigate("Create account")}
           />
-          <TextButton title={"Enter as guest"} onPress={() => {}} />
+          <TextButton
+            title={"Enter as guest"}
+            onPress={() => {
+              auth.guestLogin();
+            }}
+          />
         </View>
-      </View>
+      </Card>
     </View>
   );
 }
@@ -34,25 +42,18 @@ const makeStylesSheet = (theme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      rowGap: 30,
       justifyContent: "center",
+      padding: 30,
     },
     card: {
-      backgroundColor: theme.card,
       padding: 15,
-      borderRadius: 5,
       rowGap: 15,
-      marginHorizontal: 30,
-      boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)",
     },
     hSection: {
       flexDirection: "row",
       justifyContent: "space-evenly",
     },
-    textField: {
-      borderColor: "black",
-      borderWidth: 0.25,
-    },
+    textField: {},
     title: {
       textAlign: "center",
       marginBottom: 15,
