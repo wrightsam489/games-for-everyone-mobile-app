@@ -2,7 +2,13 @@ import { StyleSheet, View, TextInput } from "react-native";
 import { IconButton } from "./Buttons";
 import { useTheme } from "../../contexts/ThemeContext";
 
-export const TextField = ({ style, placeholder, secureTextEntry = false }) => {
+export const TextField = ({
+  style,
+  placeholder,
+  secureTextEntry = false,
+  onChange,
+  value,
+}) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
@@ -12,13 +18,21 @@ export const TextField = ({ style, placeholder, secureTextEntry = false }) => {
       placeholderTextColor={theme.colors.text}
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
+      onChange={onChange}
+      value={value}
     />
   );
 };
 
-export const SecureTextField = ({ style, placeholder }) => {
+export const SecureTextField = ({ style, placeholder, onChange, value }) => {
   return (
-    <TextField style={style} placeholder={placeholder} secureTextEntry={true} />
+    <TextField
+      style={style}
+      placeholder={placeholder}
+      secureTextEntry={true}
+      onChange={onChange}
+      value={value}
+    />
   );
 };
 
@@ -26,6 +40,8 @@ export function SearchBar({
   style,
   placeholder = "Search",
   secureTextEntry = false,
+  onChange,
+  value,
 }) {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
@@ -36,6 +52,8 @@ export function SearchBar({
         style={[{ flex: 1, borderWidth: 0 }]}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
+        onChange={onChange}
+        value={value}
       />
       <IconButton style={{ margin: 5 }} />
     </View>

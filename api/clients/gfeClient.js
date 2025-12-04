@@ -51,4 +51,6 @@ export const gfeClient = {
   getAllThemes: async () => {
     return gfeClientInstance.get("/themes/all");
   },
+
+  // Searches
 };

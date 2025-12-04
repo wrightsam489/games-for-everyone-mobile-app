@@ -20,6 +20,7 @@ import {
   GenreSection,
   ThemesSection,
 } from "../components/directory/Section";
+import ActionReloader from "../components/common/ActionReloader";
 
 const SectionType = Object.freeze({
   Company: "Company",
@@ -33,6 +34,7 @@ export default function Directory() {
   const styles = makeStylesSheet(theme.colors);
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [sections, setSections] = useState([]);
 
   useEffect(() => {
@@ -48,7 +50,9 @@ export default function Directory() {
       fetchGenre(),
       fetchThemes(),
     ];
+
     await Promise.all(data).finally(() => {
+      console.log("finally");
       setLoading(false);
     });
   };
@@ -61,6 +65,7 @@ export default function Directory() {
       });
       setSections((prev) => [...prev, ...data]);
     } catch (error) {
+      setError(error);
       console.error(error);
     }
   };
@@ -73,6 +78,7 @@ export default function Directory() {
       });
       setSections((prev) => [...prev, ...data]);
     } catch (error) {
+      setError(error);
       console.error(error);
     }
   };
@@ -85,6 +91,7 @@ export default function Directory() {
       });
       setSections((prev) => [...prev, ...data]);
     } catch (error) {
+      setError(error);
       console.error(error);
     }
   };
@@ -97,49 +104,47 @@ export default function Directory() {
       });
       setSections((prev) => [...prev, ...data]);
     } catch (error) {
+      setError(error);
       console.error(error);
     }
   };
 
   return (
     <SafeAreaView style={{ flex: 1, marginBottom: 15 }}>
-      {loading ? (
-        <ActivityIndicator
-          size={"large"}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      <SearchBar
+        style={{
+          margin: 15,
+          boxShadow:
+            mode === "dark"
+              ? '"0px 0px 0px rgba(0, 0, 0, 0)"'
+              : "0px 0px 8px rgba(0, 0, 0, 0.25)",
+        }}
+      />
+      <ActionReloader
+        style={{ flex: 1, marginBottom: 15 }}
+        loading={loading}
+        error={error}
+        callback={fetchSections}
+      >
+        <FlatList
+          data={sections}
+          keyExtractor={(item) => item.type + item.id + item.name}
+          renderItem={({ item }) => {
+            switch (item.type) {
+              case SectionType.Company:
+                return <CompanySection section={item} />;
+              case SectionType.Franchise:
+                return <FranchiseSection section={item} />;
+              case SectionType.Genre:
+                return <GenreSection section={item} />;
+              case SectionType.Theme:
+                return <ThemesSection section={item} />;
+              default:
+                <></>;
+            }
+          }}
         />
-      ) : (
-        <>
-          <SearchBar
-            style={{
-              margin: 15,
-              boxShadow:
-                mode === "dark"
-                  ? '"0px 0px 0px rgba(0, 0, 0, 0)"'
-                  : "0px 0px 8px rgba(0, 0, 0, 0.25)",
-            }}
-            dis
-          />
-          <FlatList
-            data={sections}
-            keyExtractor={(item) => item.type + item.id + item.name}
-            renderItem={({ item }) => {
-              switch (item.type) {
-                case SectionType.Company:
-                  return <CompanySection section={item} />;
-                case SectionType.Franchise:
-                  return <FranchiseSection section={item} />;
-                case SectionType.Genre:
-                  return <GenreSection section={item} />;
-                case SectionType.Theme:
-                  return <ThemesSection section={item} />;
-                default:
-                  <></>;
-              }
-            }}
-          />
-        </>
-      )}
+      </ActionReloader>
     </SafeAreaView>
   );
 }

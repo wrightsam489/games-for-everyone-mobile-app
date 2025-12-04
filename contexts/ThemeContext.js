@@ -46,7 +46,7 @@ const darkTheme = {
     borderMuted: "#333333",
     disabled: "#7A7A7A",
     textField: "#292929",
-    overlay: "rgba(0, 0, 0, 0.1)",
+    overlay: "rgba(255, 255, 255, 0.1)",
     url: "#0088ffff",
     highlight: "#FFF9C4",
   },

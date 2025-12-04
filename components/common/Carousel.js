@@ -34,11 +34,7 @@ export default function Carousel({
           ? prev
           : current;
       });
-
-      // Use the item object for display/ID comparison
       setFocusedItem(focused.item);
-
-      // FIX: Use the highly reliable 'index' property provided by the viewability object
       if (focused.index !== null && focused.index !== undefined) {
         setFocusedIndex(focused.index);
       }

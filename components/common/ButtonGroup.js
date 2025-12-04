@@ -6,6 +6,7 @@ export default function ButtonGroup({
   items = [],
   numberOfColumns = 3,
   isSingleSelection = true,
+  onToggle = () => {},
 }) {
   const [activeIndexes, setActiveIndexes] = useState([]);
 
@@ -39,6 +40,7 @@ export default function ButtonGroup({
             isActive={activeIndexes.includes(index)}
             onPress={() => {
               alterSelection(index);
+              onToggle();
             }}
           />
         );
