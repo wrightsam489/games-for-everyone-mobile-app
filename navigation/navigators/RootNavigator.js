@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useTheme } from "../../contexts/ThemeContext";
 
 import MainDrawerNavigator from "./MainDrawerNavigator";
-import AccountNavigator from "./AccountNavigator";
+import AccountStack from "../stacks/AccountStack";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function RootNavigator() {
@@ -11,7 +11,7 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer theme={theme}>
-      {auth.isValid ? <MainDrawerNavigator /> : <AccountNavigator />}
+      {auth.isValid ? <MainDrawerNavigator /> : <AccountStack />}
     </NavigationContainer>
   );
 }

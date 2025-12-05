@@ -4,7 +4,7 @@ import { useTheme } from "../../contexts/ThemeContext";
 export default function Card({ style, children }) {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme.colors);
-  return <View style={[style, styles.card]}>{children}</View>;
+  return <View style={[styles.card, style]}>{children}</View>;
 }
 
 const makeStylesSheet = (theme) => {

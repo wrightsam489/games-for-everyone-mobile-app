@@ -52,7 +52,6 @@ export default function Directory() {
     ];
 
     await Promise.all(data).finally(() => {
-      console.log("finally");
       setLoading(false);
     });
   };

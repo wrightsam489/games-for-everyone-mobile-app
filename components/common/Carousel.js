@@ -8,21 +8,21 @@ const { width } = Dimensions.get("window");
 
 export default function Carousel({
   style = { flex: 1 },
-  data: listData,
+  data,
   renderItem,
+  flatListRef,
   containerWidthPercentage = 1,
   showItemIndicator = false,
   useButtonMovement = false,
+  children,
 }) {
   const { theme, mode } = useTheme();
   const styles = makeStylesSheet(theme.colors);
-  const [focusedItem, setFocusedItem] = useState(listData[0]);
-  const [focusedIndex, setFocusedIndex] = useState(0);
+  const [focusedItem, setFocusedItem] = useState(data[0]);
 
   const viewabilityConfig = {
     itemVisiblePercentThreshold: 90,
   };
-  const flatListRef = useRef(null);
 
   const CONTAINER_WIDTH = width * containerWidthPercentage;
   const CONTAINER_SPACING = (width - CONTAINER_WIDTH) * 0.5;
@@ -35,9 +35,6 @@ export default function Carousel({
           : current;
       });
       setFocusedItem(focused.item);
-      if (focused.index !== null && focused.index !== undefined) {
-        setFocusedIndex(focused.index);
-      }
     }
   }).current;
 
@@ -46,16 +43,6 @@ export default function Carousel({
     offset: CONTAINER_WIDTH * index + CONTAINER_SPACING,
     index,
   });
-
-  const scrollToItem = (index) => {
-    if (flatListRef.current && index >= 0 && index < listData.length) {
-      flatListRef.current.scrollToIndex({
-        index: index,
-        animated: true,
-        viewPosition: 0.5,
-      });
-    }
-  };
 
   const containerRenderItem = ({ item }) => {
     return (
@@ -75,7 +62,7 @@ export default function Carousel({
       <FlatList
         ref={flatListRef}
         style={style}
-        data={listData}
+        data={data}
         renderItem={containerRenderItem}
         keyExtractor={(item) => item.id}
         horizontal={true}
@@ -89,34 +76,7 @@ export default function Carousel({
         scrollEnabled={!useButtonMovement}
         getItemLayout={getItemLayout}
       />
-      {useButtonMovement && (
-        <View
-          style={{
-            paddingHorizontal: 30,
-            flexDirection: "row",
-            columnGap: 30,
-          }}
-        >
-          <PrimaryButton
-            style={{ flex: 1 }}
-            title={"Previous"}
-            disabled={focusedItem.id == listData[0].id}
-            onPress={() => {
-              const index = focusedIndex - 1;
-              scrollToItem(index);
-            }}
-          />
-          <PrimaryButton
-            style={{ flex: 1 }}
-            title={"Next"}
-            disabled={focusedItem.id == listData[listData.length - 1].id}
-            onPress={() => {
-              const index = focusedIndex + 1;
-              scrollToItem(index);
-            }}
-          />
-        </View>
-      )}
+      {children}
       {showItemIndicator && (
         <View
           style={{
@@ -124,7 +84,7 @@ export default function Carousel({
             justifyContent: "center",
           }}
         >
-          {listData.map((element) => {
+          {data.map((element) => {
             let color = mode === "dark" ? "black" : "grey";
             if (element.id === focusedItem.id) {
               color = mode === "dark" ? "white" : "black";

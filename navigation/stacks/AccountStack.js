@@ -4,14 +4,14 @@ import CreateAccount from "../../screens/CreateAccount";
 
 const Stack = createStackNavigator();
 
-export default function AccountNavigator() {
+export default function AccountStack() {
   return (
     <Stack.Navigator screenOptions={{ headerTitleAlign: "center" }}>
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Login"
         component={Login}
         options={{ headerShown: false }}
-      />
+      /> */}
       <Stack.Screen
         name="Create account"
         component={CreateAccount}

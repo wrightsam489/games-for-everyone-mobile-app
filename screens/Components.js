@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { useTheme } from "../contexts/ThemeContext";
@@ -37,6 +37,8 @@ export default function Components() {
   const { theme } = useTheme();
   const styles = makeStyleSheet(theme.colors);
 
+  const flatListRef = useRef(null);
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const [showItemIndicator, setShowItemIndicator] = useState(true);
   const [useButtonMovement, setUseButtonMovement] = useState(true);
 
@@ -64,65 +66,173 @@ export default function Components() {
 
   const TextCard = () => {
     return (
-      <Card style={styles.card}>
-        <Title>Title</Title>
-        <Heading>Heading</Heading>
-        <Subheading>Subheading</Subheading>
-        <BodyText>BodyText</BodyText>
-      </Card>
+      <View style={styles.entry}>
+        <Card style={styles.card}>
+          <Title>Title</Title>
+          <Heading>Heading</Heading>
+          <Subheading>Subheading</Subheading>
+          <BodyText>BodyText</BodyText>
+        </Card>
+        {useButtonMovement && (
+          <View
+            style={{
+              paddingHorizontal: 30,
+              flexDirection: "row",
+              columnGap: 30,
+            }}
+          >
+            <PrimaryButton
+              style={{ flex: 1 }}
+              title={"Previous"}
+              disabled={true}
+              onPress={PrevItem}
+            />
+            <PrimaryButton
+              style={{ flex: 1 }}
+              title={"Next"}
+              disabled={false}
+              onPress={NextItem}
+            />
+          </View>
+        )}
+      </View>
     );
   };
 
   const InputCard = () => {
     return (
-      <Card style={styles.card}>
-        <TextField placeholder={"Username"} />
-        <SecureTextField placeholder={"Password"} />
-        <SearchBar placeholder={"Search"} />
-      </Card>
+      <View style={styles.entry}>
+        <Card style={styles.card}>
+          <TextField placeholder={"Username"} />
+          <SecureTextField placeholder={"Password"} />
+          <SearchBar placeholder={"Search"} />
+        </Card>
+        {useButtonMovement && (
+          <View
+            style={{
+              paddingHorizontal: 30,
+              flexDirection: "row",
+              columnGap: 30,
+            }}
+          >
+            <PrimaryButton
+              style={{ flex: 1 }}
+              title={"Previous"}
+              disabled={false}
+              onPress={PrevItem}
+            />
+            <PrimaryButton
+              style={{ flex: 1 }}
+              title={"Next"}
+              disabled={false}
+              onPress={NextItem}
+            />
+          </View>
+        )}
+      </View>
     );
   };
 
   const ButtonCard = () => {
     return (
-      <Card style={styles.card}>
-        <PrimaryButton title={"Primary"} />
-        <SecondaryButton title={"Secondary"} />
-        <DestructiveButton title={"Error"} />
-        <TextButton title={"Text"} />
+      <View style={styles.entry}>
+        <Card style={styles.card}>
+          <PrimaryButton title={"Primary"} />
+          <SecondaryButton title={"Secondary"} />
+          <DestructiveButton title={"Error"} />
+          <TextButton title={"Text"} />
 
-        <PrimaryButton title={"Primary"} disabled={true} />
-        <SecondaryButton title={"Secondary"} disabled={true} />
-        <DestructiveButton title={"Error"} disabled={true} />
-        <TextButton title={"Text"} disabled={true} />
-      </Card>
+          <PrimaryButton title={"Primary"} disabled={true} />
+          <SecondaryButton title={"Secondary"} disabled={true} />
+          <DestructiveButton title={"Error"} disabled={true} />
+          <TextButton title={"Text"} disabled={true} />
+        </Card>
+        {useButtonMovement && (
+          <View
+            style={{
+              paddingHorizontal: 30,
+              flexDirection: "row",
+              columnGap: 30,
+            }}
+          >
+            <PrimaryButton
+              style={{ flex: 1 }}
+              title={"Previous"}
+              disabled={false}
+              onPress={PrevItem}
+            />
+            <PrimaryButton
+              style={{ flex: 1 }}
+              title={"Next"}
+              disabled={false}
+              onPress={NextItem}
+            />
+          </View>
+        )}
+      </View>
     );
   };
 
   const ToggleCard = () => {
     return (
-      <Card style={styles.card}>
-        <ToggleButton isActive={true} />
-        <ToggleButton />
-        <ToggleButton isActive={true} disabled={true} />
-        <ToggleButton disabled={true} />
+      <View style={styles.entry}>
+        <Card style={styles.card}>
+          <ToggleButton isActive={true} />
+          <ToggleButton />
+          <ToggleButton isActive={true} disabled={true} />
+          <ToggleButton disabled={true} />
 
-        <ButtonGroup items={relationOptions} />
-        <ButtonGroup items={relationOptions} isSingleSelection={false} />
-      </Card>
+          <ButtonGroup items={relationOptions} />
+          <ButtonGroup items={relationOptions} isSingleSelection={false} />
+        </Card>
+        {useButtonMovement && (
+          <View
+            style={{
+              paddingHorizontal: 30,
+              flexDirection: "row",
+              columnGap: 30,
+            }}
+          >
+            <PrimaryButton
+              style={{ flex: 1 }}
+              title={"Previous"}
+              disabled={false}
+              onPress={PrevItem}
+            />
+            <PrimaryButton
+              style={{ flex: 1 }}
+              title={"Next"}
+              disabled={true}
+              onPress={NextItem}
+            />
+          </View>
+        )}
+      </View>
     );
   };
 
+  const PrevItem = () => {
+    scrollToItem(focusedIndex - 1);
+  };
+
+  const NextItem = () => {
+    scrollToItem(focusedIndex + 1);
+  };
+
+  const scrollToItem = (index) => {
+    if (flatListRef.current && index >= 0 && index < data.length) {
+      flatListRef.current.scrollToIndex({
+        index: index,
+        animated: true,
+        viewPosition: 0.5,
+      });
+      setFocusedIndex(index);
+    }
+  };
+
   return (
-    <View style={{ flex: 1, marginBottom: 25 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 25,
-          marginHorizontal: 30,
-          columnGap: 30,
-        }}
-      >
+    <View style={styles.container}>
+      <View style={styles.topButtons}>
         <ToggleButton
           style={{ flex: 1 }}
           title={"showItemIndicator"}
@@ -143,6 +253,7 @@ export default function Components() {
       <Carousel
         data={data}
         renderItem={renderItem}
+        flatListRef={flatListRef}
         showItemIndicator={showItemIndicator}
         useButtonMovement={useButtonMovement}
       />
@@ -152,9 +263,19 @@ export default function Components() {
 
 function makeStyleSheet(theme) {
   return StyleSheet.create({
+    container: { flex: 1, marginBottom: 25 },
+    topButtons: {
+      flexDirection: "row",
+      marginTop: 25,
+      marginHorizontal: 30,
+      columnGap: 30,
+    },
+    entry: {
+      flex: 1,
+      width: "100%",
+    },
     card: {
       flex: 1,
-      width: "87.5%",
       padding: 15,
       margin: 30,
       rowGap: 30,

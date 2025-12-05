@@ -1,64 +1,101 @@
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, Text } from "react-native";
 import { IconButton } from "./Buttons";
 import { useTheme } from "../../contexts/ThemeContext";
+import { forwardRef, useState } from "react";
+import { BodyText } from "./Texts";
 
-export const TextField = ({
-  style,
-  placeholder,
-  secureTextEntry = false,
-  onChange,
-  value,
-}) => {
+export const TextField = forwardRef(
+  ({ style, error, onChange, onFocus, onBlur, ...props }, ref) => {
+    const { theme } = useTheme();
+    const styles = makeStylesSheet(theme);
+    const [isFocused, setIsFocused] = useState(false);
+
+    const handleFocus = (e) => {
+      setIsFocused(true);
+      if (onFocus) onFocus(e);
+    };
+
+    const handleBlur = (e) => {
+      setIsFocused(false);
+      if (onBlur) onBlur(e);
+    };
+
+    return (
+      <View>
+        <TextInput
+          ref={ref}
+          style={[
+            styles.input,
+            style,
+            isFocused && styles.focusedInput,
+            error && styles.erroredInput,
+          ]}
+          placeholderTextColor={theme.colors.text}
+          onChangeText={onChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          {...props}
+        />
+        {error && <BodyText style={styles.errorText}>{error}</BodyText>}
+      </View>
+    );
+  }
+);
+
+export const SecureTextField = forwardRef(({ style, ...props }, ref) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
   return (
-    <TextInput
+    <TextField
+      ref={ref}
       style={[styles.input, style]}
       placeholderTextColor={theme.colors.text}
-      placeholder={placeholder}
-      secureTextEntry={secureTextEntry}
-      onChange={onChange}
-      value={value}
-    />
-  );
-};
-
-export const SecureTextField = ({ style, placeholder, onChange, value }) => {
-  return (
-    <TextField
-      style={style}
-      placeholder={placeholder}
       secureTextEntry={true}
-      onChange={onChange}
-      value={value}
+      {...props}
     />
   );
-};
+});
 
-export function SearchBar({
-  style,
-  placeholder = "Search",
-  secureTextEntry = false,
-  onChange,
-  value,
-}) {
+export const SearchBar = forwardRef(({ style, ...props }, ref) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
   return (
     <View style={[styles.searchBar, style]}>
-      <TextField
-        style={[{ flex: 1, borderWidth: 0 }]}
-        placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
-        onChange={onChange}
-        value={value}
-      />
-      <IconButton style={{ margin: 5 }} />
+      <TextField ref={ref} style={[{ flex: 1, borderWidth: 0 }]} {...props} />
+      <IconButton style={styles.searchBarIcon} />
     </View>
   );
-}
+});
+
+export const FormField = ({
+  field,
+  handleChange,
+  handleBlur,
+  values,
+  errors,
+  touched,
+}) => {
+  const errorText = touched[field.name] ? errors[field.name] : undefined;
+
+  return (
+    <View>
+      <BodyText style={{ marginHorizontal: 2, marginBottom: 2 }}>
+        {field.label}
+      </BodyText>
+      <TextField
+        placeholder={field.placeholder}
+        keyboardType={field.keyboardType}
+        onChange={handleChange(field.name)}
+        onBlur={handleBlur(field.name)}
+        value={values[field.name]}
+        error={errorText}
+        secureTextEntry={field.isSecure}
+      />
+    </View>
+  );
+};
 
 const makeStylesSheet = (theme) => {
   return StyleSheet.create({
@@ -68,14 +105,26 @@ const makeStylesSheet = (theme) => {
       backgroundColor: theme.colors.textField,
       color: theme.colors.text,
       borderColor: theme.colors.text,
-      borderWidth: StyleSheet.hairlineWidth,
+      borderWidth: 1,
+    },
+    focusedInput: {
+      borderColor: theme.colors.primary,
+    },
+    erroredInput: {
+      borderColor: theme.colors.destructive,
+    },
+    errorText: {
+      color: theme.colors.destructive,
+      marginHorizontal: 10,
+      marginBottom: 5,
     },
     searchBar: {
       flexDirection: "row",
       borderRadius: 5,
       backgroundColor: theme.colors.textField,
       borderColor: theme.colors.text,
-      borderWidth: StyleSheet.hairlineWidth,
+      borderWidth: 1,
     },
+    searchBarIcon: { margin: 5 },
   });
 };

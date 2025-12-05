@@ -34,7 +34,7 @@ export const PrimaryButton = ({ title, style, onPress, disabled = false }) => {
   return (
     <Button
       title={title}
-      style={[style, disabled ? styles.disabled : styles.primary]}
+      style={[disabled ? styles.disabled : styles.primary, style]}
       onPress={onPress}
       disabled={disabled}
     />

@@ -1,50 +1,47 @@
-import React from "react";
+import { forwardRef } from "react";
 import { StyleSheet, Text } from "react-native";
 
 import { useTheme } from "../../contexts/ThemeContext";
 
-export const Title = ({ style, numberOfLines = 0, children }) => {
+export const Title = ({ style, children, ...props }) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
   return (
-    <Text style={[style, styles.title]} numberOfLines={numberOfLines}>
+    <Text style={[styles.title, style]} {...props}>
       {children}
     </Text>
   );
 };
 
-export const Heading = ({ style, numberOfLines = 0, children }) => {
+export const Heading = ({ style, children, ...props }) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
   return (
-    <Text style={[style, styles.heading]} numberOfLines={numberOfLines}>
+    <Text style={[styles.heading, style]} {...props}>
       {children}
     </Text>
   );
 };
 
-export const Subheading = ({ style, numberOfLines = 0, children }) => {
+export const Subheading = ({ style, children, ...props }) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
   return (
-    <Text style={[style, styles.subheading]} numberOfLines={numberOfLines}>
+    <Text style={[styles.subheading, style]} {...props}>
       {children}
     </Text>
   );
 };
 
-export const BodyText = (
-  { style, numberOfLines = 0, children },
-  bold = false
-) => {
+export const BodyText = ({ style, children, ...props }) => {
   const { theme } = useTheme();
   const styles = makeStylesSheet(theme);
 
   return (
-    <Text style={[style, styles.body]} numberOfLines={numberOfLines}>
+    <Text style={[styles.body, style]} {...props}>
       {children}
     </Text>
   );
