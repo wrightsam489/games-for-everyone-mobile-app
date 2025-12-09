@@ -20,7 +20,6 @@ export const ACCOUNT_FIELDS = [
         name: "birthday",
         label: "Birthday",
         placeholder: "MM/DD/YYYY",
-        keyboardType: "numeric",
         type: "datepicker",
       },
     ],

@@ -36,7 +36,7 @@ export default function AccountInfo({ styles, onValidityChange }) {
       initialValues={{
         firstName: "",
         lastName: "",
-        birthday: "",
+        birthday: new Date(),
         username: "",
         password: "",
         confirmPassword: "",
@@ -59,9 +59,6 @@ export default function AccountInfo({ styles, onValidityChange }) {
           if (onValidityChange) {
             onValidityChange(isValid && dirty);
           }
-          console.log("Form isValid:", isValid);
-          console.log("Form dirty:", dirty);
-          console.log(errors.birthday);
         }, [isValid, dirty, errors, onValidityChange]);
 
         return (
