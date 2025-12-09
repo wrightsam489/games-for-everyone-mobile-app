@@ -2,9 +2,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Card from "../common/Card";
 import { ScrollView, View } from "react-native";
-import { Heading, Subheading } from "../common/Texts";
-import { FormField } from "../common/TextFields";
+import { BodyText, Heading, Subheading } from "../common/Texts";
 import { ACCOUNT_FIELDS } from "../../data/AccountFields";
+import FormField from "../common/FormField";
 import { useEffect } from "react";
 
 export default function AccountInfo({ styles, onValidityChange }) {
@@ -25,8 +25,8 @@ export default function AccountInfo({ styles, onValidityChange }) {
     email: Yup.string().email("Invalid email").required("Required"),
     phoneNumber: Yup.string()
       .matches(
-        /^\d{9}$/,
-        "Phone number must be exactly 10 digits (no dashes or spaces)."
+        /^\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$/,
+        "Phone number must be exactly 10 digits."
       )
       .required("Required"),
   });
@@ -46,10 +46,23 @@ export default function AccountInfo({ styles, onValidityChange }) {
       onSubmit={(values) => console.log(values)}
       validationSchema={signupSchema}
     >
-      {({ handleChange, handleBlur, values, errors, touched, isValid }) => {
-        // useEffect(() => {
-        //   onValidityChange(isValid);
-        // }, [isValid, onValidityChange]);
+      {({
+        handleChange,
+        handleBlur,
+        values,
+        errors,
+        touched,
+        isValid,
+        dirty,
+      }) => {
+        useEffect(() => {
+          if (onValidityChange) {
+            onValidityChange(isValid && dirty);
+          }
+          console.log("Form isValid:", isValid);
+          console.log("Form dirty:", dirty);
+          console.log(errors.birthday);
+        }, [isValid, dirty, errors, onValidityChange]);
 
         return (
           <View style={styles.item}>
@@ -65,12 +78,12 @@ export default function AccountInfo({ styles, onValidityChange }) {
                           <FormField
                             key={field.name}
                             field={field}
-                            formatter={field.formatter}
                             handleChange={handleChange}
                             handleBlur={handleBlur}
                             values={values}
                             errors={errors}
                             touched={touched}
+                            formatter={field.formatter}
                           />
                         );
                       })}

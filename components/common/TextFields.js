@@ -5,7 +5,7 @@ import { forwardRef, useState } from "react";
 import { BodyText } from "./Texts";
 
 export const TextField = forwardRef(
-  ({ style, error, onChange, onFocus, onBlur, ...props }, ref) => {
+  ({ style, error, onChange, onFocus, onBlur, formatter, ...props }, ref) => {
     const { theme } = useTheme();
     const styles = makeStylesSheet(theme);
     const [isFocused, setIsFocused] = useState(false);
@@ -20,6 +20,11 @@ export const TextField = forwardRef(
       if (onBlur) onBlur(e);
     };
 
+    const handleTextChange = (text) => {
+      const formattedText = formatter ? formatter(text) : text;
+      onChange(formattedText);
+    };
+
     return (
       <View>
         <TextInput
@@ -31,7 +36,7 @@ export const TextField = forwardRef(
             error && styles.erroredInput,
           ]}
           placeholderTextColor={theme.colors.text}
-          onChangeText={onChange}
+          onChangeText={handleTextChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
           {...props}
@@ -68,34 +73,6 @@ export const SearchBar = forwardRef(({ style, ...props }, ref) => {
     </View>
   );
 });
-
-export const FormField = ({
-  field,
-  handleChange,
-  handleBlur,
-  values,
-  errors,
-  touched,
-}) => {
-  const errorText = touched[field.name] ? errors[field.name] : undefined;
-
-  return (
-    <View>
-      <BodyText style={{ marginHorizontal: 2, marginBottom: 2 }}>
-        {field.label}
-      </BodyText>
-      <TextField
-        placeholder={field.placeholder}
-        keyboardType={field.keyboardType}
-        onChange={handleChange(field.name)}
-        onBlur={handleBlur(field.name)}
-        value={values[field.name]}
-        error={errorText}
-        secureTextEntry={field.isSecure}
-      />
-    </View>
-  );
-};
 
 const makeStylesSheet = (theme) => {
   return StyleSheet.create({

@@ -198,7 +198,7 @@ const makeStylesSheet = (theme) => {
     card: {
       flex: 1,
       padding: 15,
-      rowGap: 20,
+      rowGap: 25,
     },
     bottomRow: {
       flexDirection: "row",
